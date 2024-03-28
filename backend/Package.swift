@@ -1,28 +1,37 @@
-// swift-tools-version:5.9
+
+// swift-tools-version:5.7.1
+
 import PackageDescription
 
 let package = Package(
     name: "backend",
     platforms: [
-       .macOS(.v13)
+        .macOS(.v12),
+        .iOS(.v15),
+        .tvOS(.v15),
+        .watchOS(.v8),
+       
+    ],
+    products: [
+        .library(name: "AWSLambdaPackager", targets: ["AWSLambdaPackager"]),
     ],
     dependencies: [
-        // 💧 A server-side Swift web framework.
-        .package(url: "https://github.com/vapor/vapor.git", from: "4.83.1"),
+        // vos dépendances
+        .package(url: "https://github.com/vapor/vapor.git", from: "4.76.0"),
     ],
     targets: [
         .executableTarget(
-            name: "App",
+                   name: "App",
+                   dependencies: [
+                       .product(name: "Vapor", package: "vapor")
+                   ]
+               ),
+        .target(
+            name: "AWSLambdaPackager",
             dependencies: [
-                .product(name: "Vapor", package: "vapor"),
-            ]
-        ),
-        .testTarget(name: "AppTests", dependencies: [
-            .target(name: "App"),
-            .product(name: "XCTVapor", package: "vapor"),
-
-            // Workaround for https://github.com/apple/swift-package-manager/issues/6940
-            .product(name: "Vapor", package: "vapor"),
-        ])
+                // vos dépendances de la cible
+            ],
+            path: "Plugins/AWSLambdaPackager"
+        )
     ]
 )

@@ -29,24 +29,26 @@ struct AccountDetailView: View {
             
             // Display recent transactions
             VStack(alignment: .leading, spacing: 10) {
-                Text("Recent Transactions")
-                    .font(.headline)
-                    .padding([.horizontal])
-                ForEach(viewModel.recentTransactions, id: \.description) { transaction in
-                    HStack {
-                        Image(systemName: transaction.amount.contains("+") ? "arrow.up.right.circle.fill" : "arrow.down.left.circle.fill")
-                            .foregroundColor(transaction.amount.contains("+") ? .green : .red)
-                        Text(transaction.description)
-                        Spacer()
-                        Text(transaction.amount)
-                            .fontWeight(.bold)
-                            .foregroundColor(transaction.amount.contains("+") ? .green : .red)
-                    }
-                    .padding()
-                    .background(Color.gray.opacity(0.1))
-                    .cornerRadius(8)
-                    .padding([.horizontal])
-                }
+                                  Text("Recent Transactions")
+                                      .font(.headline)
+                                      .padding([.horizontal])
+                                  ForEach(viewModel.recentTransactions, id: \.description) { transaction in
+                                      HStack {
+                                          Image(systemName: transaction.amount.contains("+") ? "arrow.up.right.circle.fill" : "arrow.down.left.circle.fill")
+                                              .foregroundColor(transaction.amount.contains("+") ? .green : .red)
+                                          Text(transaction.description)
+                                          Spacer()
+                                          Text(transaction.amount)
+                                              .fontWeight(.bold)
+                                              .foregroundColor(transaction.amount.contains("+") ? .green : .red)
+                                      }
+                                      .padding()
+                                      .background(Color.gray.opacity(0.1))
+                                      .cornerRadius(8)
+                                      .padding([.horizontal])
+                                  }
+           
+
             }
             
             // Button to see details of transactions
@@ -73,6 +75,4 @@ struct AccountDetailView: View {
         
 }
 
-#Preview {
-    AccountDetailView(viewModel: AccountDetailViewModel())
-}
+

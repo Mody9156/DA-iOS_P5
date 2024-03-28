@@ -69,8 +69,4 @@ struct AuthenticationView: View {
     
 }
 
-#Preview {
-    AuthenticationView(viewModel: AuthenticationViewModel({
-        
-    }))
-}
+

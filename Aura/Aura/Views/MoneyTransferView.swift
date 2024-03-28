@@ -9,8 +9,7 @@ import SwiftUI
 
 struct MoneyTransferView: View {
     @ObservedObject var viewModel = MoneyTransferViewModel()
-
-        @State private var animationScale: CGFloat = 1.0
+    @State private var animationScale: CGFloat = 1.0
 
         var body: some View {
             VStack(spacing: 20) {
@@ -81,6 +80,4 @@ struct MoneyTransferView: View {
 }
 
 
-#Preview {
-    MoneyTransferView()
-}
+
