@@ -15,7 +15,7 @@ class AppViewModel: ObservableObject {
     }
     
     var authenticationViewModel: AuthenticationViewModel {
-        return AuthenticationViewModel { [weak self] in
+        return AuthenticationViewModel { [weak self] in // éviter les références fortes et donc les fuites de mémoire
             self?.isLogged = true
         }
     }

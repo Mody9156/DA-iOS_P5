@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		23B248332BB5BED500D4D3A4 /* UrlModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B248322BB5BED500D4D3A4 /* UrlModel.swift */; };
 		23E8BC512BB2C2D800B7A5D9 /* AuraTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E8BC502BB2C2D800B7A5D9 /* AuraTests.swift */; };
 		53D4187C2AC7099A0070ADB1 /* AuraApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D4187B2AC7099A0070ADB1 /* AuraApp.swift */; };
 		53D418802AC7099B0070ADB1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 53D4187F2AC7099B0070ADB1 /* Assets.xcassets */; };
@@ -33,6 +34,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		23B248322BB5BED500D4D3A4 /* UrlModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlModel.swift; sourceTree = "<group>"; };
 		23E8BC4E2BB2C2D800B7A5D9 /* AuraTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AuraTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		23E8BC502BB2C2D800B7A5D9 /* AuraTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuraTests.swift; sourceTree = "<group>"; };
 		53D418782AC7099A0070ADB1 /* Aura.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aura.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -68,6 +70,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		23B248312BB5BE6400D4D3A4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				23B248322BB5BED500D4D3A4 /* UrlModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		23E8BC4F2BB2C2D800B7A5D9 /* AuraTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -98,7 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				53D418962AC70FC50070ADB1 /* Utils */,
-				53D4188B2AC709B80070ADB1 /* Models */,
+				23B248312BB5BE6400D4D3A4 /* Model */,
 				53D4188A2AC709B30070ADB1 /* ViewModels */,
 				53D418892AC709AD0070ADB1 /* Views */,
 				53D4187B2AC7099A0070ADB1 /* AuraApp.swift */,
@@ -135,13 +145,6 @@
 				53D4189E2AC717890070ADB1 /* MoneyTransferViewModel.swift */,
 			);
 			path = ViewModels;
-			sourceTree = "<group>";
-		};
-		53D4188B2AC709B80070ADB1 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		53D418962AC70FC50070ADB1 /* Utils */ = {
@@ -267,6 +270,7 @@
 				53D4189D2AC715AA0070ADB1 /* AccountDetailViewModel.swift in Sources */,
 				53D418912AC70A920070ADB1 /* AuthenticationView.swift in Sources */,
 				53D418932AC70AB10070ADB1 /* AccountDetailView.swift in Sources */,
+				23B248332BB5BED500D4D3A4 /* UrlModel.swift in Sources */,
 				53D4189F2AC717890070ADB1 /* MoneyTransferViewModel.swift in Sources */,
 				53D4188D2AC709F40070ADB1 /* AppViewModel.swift in Sources */,
 				53D418A12AC71B8F0070ADB1 /* View+Extensions.swift in Sources */,
