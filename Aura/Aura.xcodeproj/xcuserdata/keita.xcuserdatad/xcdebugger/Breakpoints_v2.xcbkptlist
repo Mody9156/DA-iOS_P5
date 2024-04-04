@@ -7,15 +7,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "EB4E36A9-67DD-4F81-BD19-44371181ECBD"
-            shouldBeEnabled = "Yes"
+            uuid = "117D638E-CC82-44AA-82B7-34BFA35A49AF"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Aura/ViewModels/AuthenticationViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "56"
-            endingLineNumber = "56"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
             landmarkName = "AuthenticationViewModel"
             landmarkType = "3">
          </BreakpointContent>

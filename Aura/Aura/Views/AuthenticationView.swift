@@ -16,7 +16,6 @@ struct AuthenticationView: View {
     let gradientEnd = Color(hex: "#94A684").opacity(0.0) // Fades to transparent
 
     @ObservedObject var viewModel: AuthenticationViewModel
-
     
     var body: some View {
         
@@ -50,7 +49,11 @@ struct AuthenticationView: View {
                         
                         Button(action: {
                             // Handle authentication logic here
-                            viewModel.login()
+                            Task { @MainActor in
+                                try? await viewModel.login()
+                            }
+                           
+                                                          
                         }) {
                             Text("Se connecter")
                                 .foregroundColor(.white)
