@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct aura{
+struct Aura{
     var token : String
 }

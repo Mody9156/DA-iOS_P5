@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		23B248332BB5BED500D4D3A4 /* AuthenticationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B248322BB5BED500D4D3A4 /* AuthenticationRequest.swift */; };
-		23BCB7A12BBD4E64000D7229 /* aura.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BCB7A02BBD4E64000D7229 /* aura.swift */; };
+		23BCB7A12BBD4E64000D7229 /* Aura.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BCB7A02BBD4E64000D7229 /* Aura.swift */; };
 		23BCB7A32BBD8153000D7229 /* AccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BCB7A22BBD8153000D7229 /* AccountModel.swift */; };
 		23E8BC512BB2C2D800B7A5D9 /* AuraTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E8BC502BB2C2D800B7A5D9 /* AuraTests.swift */; };
 		53D4187C2AC7099A0070ADB1 /* AuraApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D4187B2AC7099A0070ADB1 /* AuraApp.swift */; };
@@ -37,7 +37,7 @@
 
 /* Begin PBXFileReference section */
 		23B248322BB5BED500D4D3A4 /* AuthenticationRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationRequest.swift; sourceTree = "<group>"; };
-		23BCB7A02BBD4E64000D7229 /* aura.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = aura.swift; sourceTree = "<group>"; };
+		23BCB7A02BBD4E64000D7229 /* Aura.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Aura.swift; sourceTree = "<group>"; };
 		23BCB7A22BBD8153000D7229 /* AccountModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountModel.swift; sourceTree = "<group>"; };
 		23E8BC4E2BB2C2D800B7A5D9 /* AuraTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AuraTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		23E8BC502BB2C2D800B7A5D9 /* AuraTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuraTests.swift; sourceTree = "<group>"; };
@@ -78,7 +78,7 @@
 			isa = PBXGroup;
 			children = (
 				23B248322BB5BED500D4D3A4 /* AuthenticationRequest.swift */,
-				23BCB7A02BBD4E64000D7229 /* aura.swift */,
+				23BCB7A02BBD4E64000D7229 /* Aura.swift */,
 				23BCB7A22BBD8153000D7229 /* AccountModel.swift */,
 			);
 			path = Model;
@@ -271,7 +271,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				53D4187C2AC7099A0070ADB1 /* AuraApp.swift in Sources */,
-				23BCB7A12BBD4E64000D7229 /* aura.swift in Sources */,
+				23BCB7A12BBD4E64000D7229 /* Aura.swift in Sources */,
 				53D418952AC70ABF0070ADB1 /* MoneyTransferView.swift in Sources */,
 				53D4189B2AC711990070ADB1 /* AuthenticationViewModel.swift in Sources */,
 				53D4189D2AC715AA0070ADB1 /* AccountDetailViewModel.swift in Sources */,

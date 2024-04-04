@@ -14,10 +14,88 @@
             filePath = "Aura/ViewModels/AuthenticationViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "48"
-            endingLineNumber = "48"
-            landmarkName = "AuthenticationViewModel"
-            landmarkType = "3">
+            startingLineNumber = "52"
+            endingLineNumber = "52"
+            landmarkName = "unknown"
+            landmarkType = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "137CBBF1-75A5-4D75-8813-A32C6E065A75"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Aura/ViewModels/AuthenticationViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
+            landmarkName = "login()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "137CBBF1-75A5-4D75-8813-A32C6E065A75 - bd7ed2f386ca8e8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for Aura.AuthenticationViewModel.login() async throws -&gt; ()"
+                  moduleName = "Aura"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/keita/Documents/Projet5/DA-iOS_P5/Aura/Aura/ViewModels/AuthenticationViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "26"
+                  endingLineNumber = "26"
+                  offsetFromSymbolStart = "55">
+               </Location>
+               <Location
+                  uuid = "137CBBF1-75A5-4D75-8813-A32C6E065A75 - 9715fbf56b4dbdff"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) await resume partial function for Aura.AuthenticationViewModel.login() async throws -&gt; ()"
+                  moduleName = "Aura"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/keita/Documents/Projet5/DA-iOS_P5/Aura/Aura/ViewModels/AuthenticationViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "26"
+                  endingLineNumber = "26"
+                  offsetFromSymbolStart = "44">
+               </Location>
+               <Location
+                  uuid = "137CBBF1-75A5-4D75-8813-A32C6E065A75 - fea418e816f876ee"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for Aura.AuthenticationViewModel.login() async throws -&gt; ()"
+                  moduleName = "Aura"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/keita/Documents/Projet5/DA-iOS_P5/Aura/Aura/ViewModels/AuthenticationViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "26"
+                  endingLineNumber = "26"
+                  offsetFromSymbolStart = "39">
+               </Location>
+               <Location
+                  uuid = "137CBBF1-75A5-4D75-8813-A32C6E065A75 - f41d2d459f8191ef"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for Aura.AuthenticationViewModel.login() async throws -&gt; ()"
+                  moduleName = "Aura"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/keita/Documents/Projet5/DA-iOS_P5/Aura/Aura/ViewModels/AuthenticationViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "26"
+                  endingLineNumber = "26"
+                  offsetFromSymbolStart = "31">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
