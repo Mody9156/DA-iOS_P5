@@ -38,7 +38,6 @@ final class AuthenticationRequest {
        
         if let getoken = keychain.get("token"){
             print("Token :",getoken)
-            
             let _ = keychain.delete("token")
             print("token delete")
         }else{
