@@ -7,6 +7,7 @@
 
 import Foundation
 
-struct Aura{
-    var token : String
+struct AuthRequest : Encodable {
+    let username : String
+    let password : String
 }
