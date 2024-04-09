@@ -31,7 +31,7 @@ final class AuthenticationRequest {
         }
         
         let tokenTime : TimeInterval = 60 * 5
-        let expiration = Date().addingTimeInterval(tokenTime)
+        _ = Date().addingTimeInterval(tokenTime)
         
         keychain.synchronizable = true
         keychain.set(token, forKey: "token",withAccess: .accessibleAfterFirstUnlockThisDeviceOnly)

@@ -23,15 +23,19 @@ final class AccountModel {
     func fetchAccountDetails(username: String, password: String) async throws -> (value: String, label: String) {
         let token = try await authenticationRequest.getToken(username: username, password: password)
         let (data, _) = try await session.data(for: getRequest(token: token))
-
-        guard let json = try? JSONDecoder().decode([String: String].self, from: data),
-              let value = json["value"] ,
-              let label = json["label"] else {
-            throw Failure.tokenInvalid
+        
+        return try  DispatchQueue.main.sync {
+            guard let json = try? JSONDecoder().decode([String: String].self, from: data),
+                  let value = json["value"] ,
+                  let label = json["label"] else {
+                throw Failure.tokenInvalid
+            }
+            return (value,label)
         }
+        
 
        
-        return (value,label)
+     
        
     }
     

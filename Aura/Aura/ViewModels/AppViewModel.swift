@@ -21,6 +21,9 @@ class AppViewModel: ObservableObject {
     }
     
     var accountDetailViewModel: AccountDetailViewModel {
-        return AccountDetailViewModel()
+        
+        let AccountModel =  AccountModel(session: URLSession.shared, authenticationRequest: AuthenticationRequest())
+        
+        return AccountDetailViewModel(accountModel: AccountModel)
     }
 }

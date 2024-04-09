@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AccountDetailView: View {
     @ObservedObject var viewModel: AccountDetailViewModel
+    @State var Transaction : Bool = false
     
     var body: some View {
         VStack(spacing: 20) {
@@ -54,10 +55,22 @@ struct AccountDetailView: View {
             // Button to see details of transactions
             Button(action: {
                 // Implement action to show transaction details
+                Transaction.toggle()
+                Task{
+                    do{
+                      try await viewModel.callme()
+                    }catch{
+                        print("errro")
+                    }
+                   
+                }
+                 
+               
+                
             }) {
                 HStack {
                     Image(systemName: "list.bullet")
-                    Text("See Transaction Details")
+                    Text(Transaction ? "Hide Transaction Details": "See Transaction Details")
                 }
                 .padding()
                 .background(Color(hex: "#94A684"))
