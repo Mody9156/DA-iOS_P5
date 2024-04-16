@@ -4,45 +4,37 @@
 //
 //  Created by KEITA on 03/04/2024.
 //
+
 import Foundation
 
 final class AccountModel {
     let url = URL(string: "http://127.0.0.1:8080/account")!
     let session: URLSession
-    let authenticationRequest: AuthenticationRequest
+    var token : TokenForAura
     
-    init(session: URLSession = URLSession(configuration: .ephemeral), authenticationRequest: AuthenticationRequest) {
+    init(session: URLSession = URLSession(configuration: .default),token : TokenForAura) {
         self.session = session
-        self.authenticationRequest = authenticationRequest
-    }
-    
-    enum Failure: Error {
-        case tokenInvalid
-    }
-    
-    func fetchAccountDetails(username: String, password: String) async throws -> (value: String, label: String) {
-        let token = try await authenticationRequest.getToken(username: username, password: password)
-        let (data, _) = try await session.data(for: getRequest(token: token))
+        self.token = token
         
-        return try  DispatchQueue.main.sync {
-            guard let json = try? JSONDecoder().decode([String: String].self, from: data),
-                  let value = json["value"] ,
-                  let label = json["label"] else {
-                throw Failure.tokenInvalid
-            }
-            return (value,label)
-        }
-        
+    }
 
-       
-     
-       
+    enum Failure: Error {
+        case Fail
     }
-    
-    private func getRequest(token: String) -> URLRequest {
+  
+    func getRequest() -> URLRequest {
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        request.setValue(token, forHTTPHeaderField: "token")//headers
+        request.setValue(token.token, forHTTPHeaderField: "token") // headers
         return request
+    }
+    
+    func fetchAccountDetails() async throws -> AccountData {
+        let (data, _) = try await session.data(for: getRequest())
+        guard let json = try? JSONDecoder().decode(AccountData.self, from: data) else {
+            throw Failure.Fail
+        }
+        print("\(token.token)")
+        return json
     }
 }

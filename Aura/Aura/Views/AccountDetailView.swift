@@ -48,24 +48,19 @@ struct AccountDetailView: View {
                                       .cornerRadius(8)
                                       .padding([.horizontal])
                                   }
-           
+             
 
             }
             
             // Button to see details of transactions
             Button(action: {
                 // Implement action to show transaction details
-                Transaction.toggle()
-                Task{
-                    do{
-                      try await viewModel.callme()
-                    }catch{
-                        print("errro")
-                    }
-                   
+                
+                Task{@MainActor in
+                    Transaction.toggle()
+                    await viewModel.callme()
+                    
                 }
-                 
-               
                 
             }) {
                 HStack {
@@ -77,8 +72,7 @@ struct AccountDetailView: View {
                 .foregroundColor(.white)
                 .cornerRadius(8)
             }
-            .padding([.horizontal, .bottom])
-            
+            .padding([.horizontal, .bottom])            
             Spacer()
         }
         .onTapGesture {

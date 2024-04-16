@@ -13,8 +13,6 @@ class MoneyTransferViewModel: ObservableObject {
     @Published var transferMessage: String = ""
     
     func sendMoney() {        
-        
-        
         // Logic to send money - for now, we're just setting a success message.
         // You can later integrate actual logic.
         if !recipient.isEmpty && !amount.isEmpty {
@@ -22,9 +20,5 @@ class MoneyTransferViewModel: ObservableObject {
         } else {
             transferMessage = "Please enter recipient and amount."
         }
-        
-        
-        
-        
     }
 }

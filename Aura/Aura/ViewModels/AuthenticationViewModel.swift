@@ -9,14 +9,14 @@ import Foundation
 class AuthenticationViewModel: ObservableObject {
     @Published var username: String = "test@aura.app"
     @Published var password: String = "test123"
-     let authentification = AuthenticationRequest()
-    var keychain = KeychainSwift()
+    let authentification : AuthenticationRequest
 
     
     var onLoginSucceed: (() -> ())
     
-    init(_ callback: @escaping () -> ()) {
+    init(_ callback: @escaping () -> (),authentification : AuthenticationRequest) {
         self.onLoginSucceed = callback
+        self.authentification =  authentification
     }
 
     func login() async throws {

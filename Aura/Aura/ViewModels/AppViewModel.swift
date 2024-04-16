@@ -4,26 +4,33 @@
 //
 //  Created by Vincent Saluzzo on 29/09/2023.
 //
-
 import Foundation
-
+import SwiftUI
 class AppViewModel: ObservableObject {
     @Published var isLogged: Bool
+    var keychain = KeychainSwift()
+    var storedKey: String
     
     init() {
+      
+        if let tokenvalue = keychain.get("token") {
+            storedKey = tokenvalue
+        } else {
+            storedKey = ""
+        }
         isLogged = false
     }
     
     var authenticationViewModel: AuthenticationViewModel {
-        return AuthenticationViewModel { [weak self] in // éviter les références fortes et donc les fuites de mémoire
+        let authentification = AuthenticationRequest(session: URLSession.shared, getToken: TokenForAura(token: storedKey))
+        return AuthenticationViewModel({ [weak self] in
             self?.isLogged = true
-        }
+            
+        }, authentification: authentification)
     }
     
     var accountDetailViewModel: AccountDetailViewModel {
-        
-        let AccountModel =  AccountModel(session: URLSession.shared, authenticationRequest: AuthenticationRequest())
-        
-        return AccountDetailViewModel(accountModel: AccountModel)
+        let accountModel = AccountModel(token: TokenForAura(token: storedKey))
+        return AccountDetailViewModel(accountModel: accountModel)
     }
 }

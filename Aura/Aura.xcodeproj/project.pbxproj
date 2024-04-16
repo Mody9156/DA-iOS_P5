@@ -12,6 +12,7 @@
 		23BCB7A32BBD8153000D7229 /* AccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BCB7A22BBD8153000D7229 /* AccountModel.swift */; };
 		23C51C472BC008CF00EFC339 /* KeychainSwiftDistrib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C51C462BC008CF00EFC339 /* KeychainSwiftDistrib.swift */; };
 		23E8BC512BB2C2D800B7A5D9 /* AuraTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E8BC502BB2C2D800B7A5D9 /* AuraTests.swift */; };
+		23EA9F2F2BC6AC16000E8DB3 /* TokenForAura.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EA9F2E2BC6AC16000E8DB3 /* TokenForAura.swift */; };
 		53D4187C2AC7099A0070ADB1 /* AuraApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D4187B2AC7099A0070ADB1 /* AuraApp.swift */; };
 		53D418802AC7099B0070ADB1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 53D4187F2AC7099B0070ADB1 /* Assets.xcassets */; };
 		53D418832AC7099B0070ADB1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 53D418822AC7099B0070ADB1 /* Preview Assets.xcassets */; };
@@ -43,6 +44,7 @@
 		23C51C462BC008CF00EFC339 /* KeychainSwiftDistrib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainSwiftDistrib.swift; sourceTree = "<group>"; };
 		23E8BC4E2BB2C2D800B7A5D9 /* AuraTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AuraTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		23E8BC502BB2C2D800B7A5D9 /* AuraTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuraTests.swift; sourceTree = "<group>"; };
+		23EA9F2E2BC6AC16000E8DB3 /* TokenForAura.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenForAura.swift; sourceTree = "<group>"; };
 		53D418782AC7099A0070ADB1 /* Aura.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aura.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		53D4187B2AC7099A0070ADB1 /* AuraApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuraApp.swift; sourceTree = "<group>"; };
 		53D4187F2AC7099B0070ADB1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 				23B248322BB5BED500D4D3A4 /* AuthenticationRequest.swift */,
 				23BCB7A02BBD4E64000D7229 /* AuthRequest.swift */,
 				23BCB7A22BBD8153000D7229 /* AccountModel.swift */,
+				23EA9F2E2BC6AC16000E8DB3 /* TokenForAura.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -282,6 +285,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				53D4187C2AC7099A0070ADB1 /* AuraApp.swift in Sources */,
+				23EA9F2F2BC6AC16000E8DB3 /* TokenForAura.swift in Sources */,
 				23BCB7A12BBD4E64000D7229 /* AuthRequest.swift in Sources */,
 				53D418952AC70ABF0070ADB1 /* MoneyTransferView.swift in Sources */,
 				53D4189B2AC711990070ADB1 /* AuthenticationViewModel.swift in Sources */,
