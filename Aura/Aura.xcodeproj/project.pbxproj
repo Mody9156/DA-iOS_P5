@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		234B4AA32BD06F4F00848377 /* AllTransactionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234B4AA22BD06F4F00848377 /* AllTransactionsViewModel.swift */; };
 		23B248332BB5BED500D4D3A4 /* AuthenticationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B248322BB5BED500D4D3A4 /* AuthenticationRequest.swift */; };
-		23BCB7A12BBD4E64000D7229 /* AuthRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BCB7A02BBD4E64000D7229 /* AuthRequest.swift */; };
+		23BCB7A12BBD4E64000D7229 /* AuraModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BCB7A02BBD4E64000D7229 /* AuraModel.swift */; };
 		23BCB7A32BBD8153000D7229 /* AccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BCB7A22BBD8153000D7229 /* AccountModel.swift */; };
+		23BE002C2BD0FFCE00FD3068 /* MoneyTransferModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BE002B2BD0FFCE00FD3068 /* MoneyTransferModel.swift */; };
 		23C51C472BC008CF00EFC339 /* KeychainSwiftDistrib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C51C462BC008CF00EFC339 /* KeychainSwiftDistrib.swift */; };
 		23E8BC512BB2C2D800B7A5D9 /* AuraTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E8BC502BB2C2D800B7A5D9 /* AuraTests.swift */; };
-		23EA9F2F2BC6AC16000E8DB3 /* TokenForAura.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EA9F2E2BC6AC16000E8DB3 /* TokenForAura.swift */; };
+		23EDD74E2BD022D600CF2AE1 /* AllTransactionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EDD74D2BD022D600CF2AE1 /* AllTransactionsView.swift */; };
 		53D4187C2AC7099A0070ADB1 /* AuraApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D4187B2AC7099A0070ADB1 /* AuraApp.swift */; };
 		53D418802AC7099B0070ADB1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 53D4187F2AC7099B0070ADB1 /* Assets.xcassets */; };
 		53D418832AC7099B0070ADB1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 53D418822AC7099B0070ADB1 /* Preview Assets.xcassets */; };
@@ -38,13 +40,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		234B4AA22BD06F4F00848377 /* AllTransactionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTransactionsViewModel.swift; sourceTree = "<group>"; };
 		23B248322BB5BED500D4D3A4 /* AuthenticationRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationRequest.swift; sourceTree = "<group>"; };
-		23BCB7A02BBD4E64000D7229 /* AuthRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRequest.swift; sourceTree = "<group>"; };
+		23BCB7A02BBD4E64000D7229 /* AuraModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuraModel.swift; sourceTree = "<group>"; };
 		23BCB7A22BBD8153000D7229 /* AccountModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountModel.swift; sourceTree = "<group>"; };
+		23BE002B2BD0FFCE00FD3068 /* MoneyTransferModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyTransferModel.swift; sourceTree = "<group>"; };
 		23C51C462BC008CF00EFC339 /* KeychainSwiftDistrib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainSwiftDistrib.swift; sourceTree = "<group>"; };
 		23E8BC4E2BB2C2D800B7A5D9 /* AuraTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AuraTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		23E8BC502BB2C2D800B7A5D9 /* AuraTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuraTests.swift; sourceTree = "<group>"; };
-		23EA9F2E2BC6AC16000E8DB3 /* TokenForAura.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenForAura.swift; sourceTree = "<group>"; };
+		23EDD74D2BD022D600CF2AE1 /* AllTransactionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTransactionsView.swift; sourceTree = "<group>"; };
 		53D418782AC7099A0070ADB1 /* Aura.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aura.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		53D4187B2AC7099A0070ADB1 /* AuraApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuraApp.swift; sourceTree = "<group>"; };
 		53D4187F2AC7099B0070ADB1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -82,10 +86,10 @@
 			isa = PBXGroup;
 			children = (
 				23C51C452BC008BF00EFC339 /* Keychain */,
+				23BCB7A02BBD4E64000D7229 /* AuraModel.swift */,
 				23B248322BB5BED500D4D3A4 /* AuthenticationRequest.swift */,
-				23BCB7A02BBD4E64000D7229 /* AuthRequest.swift */,
 				23BCB7A22BBD8153000D7229 /* AccountModel.swift */,
-				23EA9F2E2BC6AC16000E8DB3 /* TokenForAura.swift */,
+				23BE002B2BD0FFCE00FD3068 /* MoneyTransferModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -152,6 +156,7 @@
 				53D418902AC70A920070ADB1 /* AuthenticationView.swift */,
 				53D418922AC70AB10070ADB1 /* AccountDetailView.swift */,
 				53D418942AC70ABF0070ADB1 /* MoneyTransferView.swift */,
+				23EDD74D2BD022D600CF2AE1 /* AllTransactionsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -163,6 +168,7 @@
 				53D4189A2AC711990070ADB1 /* AuthenticationViewModel.swift */,
 				53D4189C2AC715AA0070ADB1 /* AccountDetailViewModel.swift */,
 				53D4189E2AC717890070ADB1 /* MoneyTransferViewModel.swift */,
+				234B4AA22BD06F4F00848377 /* AllTransactionsViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -285,16 +291,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				53D4187C2AC7099A0070ADB1 /* AuraApp.swift in Sources */,
-				23EA9F2F2BC6AC16000E8DB3 /* TokenForAura.swift in Sources */,
-				23BCB7A12BBD4E64000D7229 /* AuthRequest.swift in Sources */,
+				23EDD74E2BD022D600CF2AE1 /* AllTransactionsView.swift in Sources */,
+				23BCB7A12BBD4E64000D7229 /* AuraModel.swift in Sources */,
 				53D418952AC70ABF0070ADB1 /* MoneyTransferView.swift in Sources */,
 				53D4189B2AC711990070ADB1 /* AuthenticationViewModel.swift in Sources */,
+				234B4AA32BD06F4F00848377 /* AllTransactionsViewModel.swift in Sources */,
 				53D4189D2AC715AA0070ADB1 /* AccountDetailViewModel.swift in Sources */,
 				23BCB7A32BBD8153000D7229 /* AccountModel.swift in Sources */,
 				53D418912AC70A920070ADB1 /* AuthenticationView.swift in Sources */,
 				23C51C472BC008CF00EFC339 /* KeychainSwiftDistrib.swift in Sources */,
 				53D418932AC70AB10070ADB1 /* AccountDetailView.swift in Sources */,
 				23B248332BB5BED500D4D3A4 /* AuthenticationRequest.swift in Sources */,
+				23BE002C2BD0FFCE00FD3068 /* MoneyTransferModel.swift in Sources */,
 				53D4189F2AC717890070ADB1 /* MoneyTransferViewModel.swift in Sources */,
 				53D4188D2AC709F40070ADB1 /* AppViewModel.swift in Sources */,
 				53D418A12AC71B8F0070ADB1 /* View+Extensions.swift in Sources */,

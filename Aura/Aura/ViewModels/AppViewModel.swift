@@ -5,32 +5,43 @@
 //  Created by Vincent Saluzzo on 29/09/2023.
 //
 import Foundation
-import SwiftUI
+
 class AppViewModel: ObservableObject {
     @Published var isLogged: Bool
-    var keychain = KeychainSwift()
+    let keychain = KeychainSwift()
     var storedKey: String
-    
+
     init() {
-      
+        isLogged = false
+
         if let tokenvalue = keychain.get("token") {
             storedKey = tokenvalue
+            print("tu as bien le token :", tokenvalue)
         } else {
-            storedKey = ""
+            storedKey = "token is empty"
         }
-        isLogged = false
+
     }
     
     var authenticationViewModel: AuthenticationViewModel {
-        let authentification = AuthenticationRequest(session: URLSession.shared, getToken: TokenForAura(token: storedKey))
+        let authentification = AuthenticationRequest(session: URLSession.shared)
         return AuthenticationViewModel({ [weak self] in
-            self?.isLogged = true
-            
+            DispatchQueue.main.async {
+                self?.isLogged = true
+
+            }
         }, authentification: authentification)
     }
     
     var accountDetailViewModel: AccountDetailViewModel {
-        let accountModel = AccountModel(token: TokenForAura(token: storedKey))
+        let accountModel = AccountModel(session: URLSession.shared, authenticationViewModel: authenticationViewModel)
         return AccountDetailViewModel(accountModel: accountModel)
+    }
+    
+    var moneyTransferViewModel : MoneyTransferViewModel {
+        
+        let moneyTransferModel = MoneyTransferModel( authenticationViewModel: authenticationViewModel)
+        
+        return MoneyTransferViewModel(moneyTransferModel: moneyTransferModel)
     }
 }

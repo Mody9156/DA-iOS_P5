@@ -7,17 +7,129 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "117D638E-CC82-44AA-82B7-34BFA35A49AF"
+            uuid = "6DE7B707-842F-4192-8737-B33BD2FA019E"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Aura/ViewModels/AuthenticationViewModel.swift"
+            filePath = "Aura/Model/MoneyTransferModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "33"
-            endingLineNumber = "33"
+            startingLineNumber = "9"
+            endingLineNumber = "9"
             landmarkName = "unknown"
             landmarkType = "0">
+            <Locations>
+               <Location
+                  uuid = "6DE7B707-842F-4192-8737-B33BD2FA019E - 120a8244fd3dc41a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Aura.MoneyTransferModel.deinit"
+                  moduleName = "Aura"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/keita/Documents/Projet5/DA-iOS_P5/Aura/Aura/Model/MoneyTransferModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "10"
+                  endingLineNumber = "10"
+                  offsetFromSymbolStart = "0">
+               </Location>
+               <Location
+                  uuid = "6DE7B707-842F-4192-8737-B33BD2FA019E - f15bde9f783e8523"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Aura.MoneyTransferModel.__deallocating_deinit"
+                  moduleName = "Aura"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/keita/Documents/Projet5/DA-iOS_P5/Aura/Aura/Model/MoneyTransferModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D050E986-943A-4088-88E8-4F3E5E3A6F53"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Aura/Model/MoneyTransferModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
+            landmarkName = "MoneyTransferModel"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "D050E986-943A-4088-88E8-4F3E5E3A6F53 - aa26fae8aa733d54"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Aura.MoneyTransferModel.fetchMoneyTransfer(recipient: Swift.String, amount: Swift.String) async throws -&gt; __C.NSHTTPURLResponse"
+                  moduleName = "Aura"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/keita/Documents/Projet5/DA-iOS_P5/Aura/Aura/Model/MoneyTransferModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "43"
+                  endingLineNumber = "43"
+                  offsetFromSymbolStart = "270">
+               </Location>
+               <Location
+                  uuid = "D050E986-943A-4088-88E8-4F3E5E3A6F53 - f13062db641ea990"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for Aura.MoneyTransferModel.fetchMoneyTransfer(recipient: Swift.String, amount: Swift.String) async throws -&gt; __C.NSHTTPURLResponse"
+                  moduleName = "Aura"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/keita/Documents/Projet5/DA-iOS_P5/Aura/Aura/Model/MoneyTransferModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "43"
+                  endingLineNumber = "43"
+                  offsetFromSymbolStart = "100">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D22AEACC-7B58-4187-95B5-860A6FA20D51"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Aura/Model/MoneyTransferModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
+            landmarkName = "MoneyTransferModel"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4D8EA6E8-4704-45CE-9839-7FA5106CCC55"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Aura/Model/MoneyTransferModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
+            landmarkName = "fetchMoneyTransfer(recipient:amount:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

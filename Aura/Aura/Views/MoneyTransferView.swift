@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MoneyTransferView: View {
-    @ObservedObject var viewModel = MoneyTransferViewModel()
+    @ObservedObject var viewModel : MoneyTransferViewModel
     @State private var animationScale: CGFloat = 1.0
 
         var body: some View {
@@ -51,7 +51,20 @@ struct MoneyTransferView: View {
                         .keyboardType(.decimalPad)
                 }
 
-                Button(action: viewModel.sendMoney) {
+                Button(action: {
+                    Task{@MainActor in
+                        do {
+                            try await viewModel.sendMoney()
+                            
+                        }
+                        catch{
+                            print("impossible de passer la function vérifié votre code : ",error)
+                        }
+                        
+                    }
+                    
+                } ) {
+                   
                     HStack {
                         Image(systemName: "arrow.right.circle.fill")
                         Text("Send")

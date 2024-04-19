@@ -10,31 +10,36 @@ import Foundation
 final class AccountModel {
     let url = URL(string: "http://127.0.0.1:8080/account")!
     let session: URLSession
-    var token : TokenForAura
+    let keychain = KeychainSwift()
+    let authenticationViewModel : AuthenticationViewModel
     
-    init(session: URLSession = URLSession(configuration: .default),token : TokenForAura) {
+    init(session: URLSession = URLSession(configuration: .ephemeral),authenticationViewModel : AuthenticationViewModel) {
         self.session = session
-        self.token = token
-        
+        self.authenticationViewModel = authenticationViewModel
     }
 
     enum Failure: Error {
         case Fail
     }
-  
     func getRequest() -> URLRequest {
+
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        request.setValue(token.token, forHTTPHeaderField: "token") // headers
+        request.allHTTPHeaderFields = ["token":authenticationViewModel.storedKey]
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "content-type")
+        print("token : n °\(authenticationViewModel.storedKey)")
+
         return request
     }
     
     func fetchAccountDetails() async throws -> AccountData {
         let (data, _) = try await session.data(for: getRequest())
         guard let json = try? JSONDecoder().decode(AccountData.self, from: data) else {
-            throw Failure.Fail
+        throw Failure.Fail
         }
-        print("\(token.token)")
         return json
     }
+    
 }
+    
+   

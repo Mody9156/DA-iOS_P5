@@ -9,8 +9,8 @@ import SwiftUI
 
 struct AccountDetailView: View {
     @ObservedObject var viewModel: AccountDetailViewModel
-    @State var Transaction : Bool = false
-    
+    @State private var Transaction  = false
+
     var body: some View {
         VStack(spacing: 20) {
             // Large Header displaying total amount
@@ -29,43 +29,46 @@ struct AccountDetailView: View {
             .padding(.top)
             
             // Display recent transactions
-            VStack(alignment: .leading, spacing: 10) {
-                                  Text("Recent Transactions")
-                                      .font(.headline)
-                                      .padding([.horizontal])
-                                  ForEach(viewModel.recentTransactions, id: \.description) { transaction in
-                                      HStack {
-                                          Image(systemName: transaction.amount.contains("+") ? "arrow.up.right.circle.fill" : "arrow.down.left.circle.fill")
-                                              .foregroundColor(transaction.amount.contains("+") ? .green : .red)
-                                          Text(transaction.description)
-                                          Spacer()
-                                          Text(transaction.amount)
-                                              .fontWeight(.bold)
-                                              .foregroundColor(transaction.amount.contains("+") ? .green : .red)
+            ScrollView {
+                VStack(alignment: .leading, spacing: 10) {
+                                      Text("Recent Transactions")
+                                          .font(.headline)
+                                          .padding([.horizontal])
+                                      ForEach(viewModel.recentTransactions, id: \.description) { transaction in
+                                          HStack {
+                                              Image(systemName: transaction.amount.contains("+") ? "arrow.up.right.circle.fill" : "arrow.down.left.circle.fill")
+                                                  .foregroundColor(transaction.amount.contains("+") ? .green : .red)
+                                              Text(transaction.description)
+                                              Spacer()
+                                              Text(transaction.amount)
+                                                  .fontWeight(.bold)
+                                                  .foregroundColor(transaction.amount.contains("+") ? .green : .red)
+                                          }
+                                          .padding()
+                                          .background(Color.gray.opacity(0.1))
+                                          .cornerRadius(8)
+                                          .padding([.horizontal])
                                       }
-                                      .padding()
-                                      .background(Color.gray.opacity(0.1))
-                                      .cornerRadius(8)
-                                      .padding([.horizontal])
-                                  }
-             
-
-            }
-            
-            // Button to see details of transactions
-            Button(action: {
-                // Implement action to show transaction details
-                
-                Task{@MainActor in
-                    Transaction.toggle()
-                    await viewModel.callme()
-                    
+                 
                 }
+            }
+          
+            
+            Button(action: {
+                Transaction.toggle()
                 
+                if Transaction {
+                    
+                    Task{@MainActor in
+                        
+                        await viewModel.callme()
+                    }
+                }
+               
             }) {
                 HStack {
                     Image(systemName: "list.bullet")
-                    Text(Transaction ? "Hide Transaction Details": "See Transaction Details")
+                    Text( "See Transaction Details")
                 }
                 .padding()
                 .background(Color(hex: "#94A684"))
@@ -77,7 +80,11 @@ struct AccountDetailView: View {
         }
         .onTapGesture {
                     self.endEditing(true)  // This will dismiss the keyboard when tapping outside
-                }
+            
+          }
+       
+                   
+               
     }
         
 }

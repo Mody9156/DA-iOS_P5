@@ -24,3 +24,13 @@ struct Transaction: Decodable {
 }
 
 
+struct Transactions {
+    let description: String
+    let amount: String
+}
+
+struct MoneyTransfer : Encodable{
+    let recipient : String
+    let amount : Double
+}
+

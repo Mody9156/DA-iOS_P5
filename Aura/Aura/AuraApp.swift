@@ -22,11 +22,19 @@ struct AuraApp: App {
                                 Text("Account")
                             }
                         
-                        MoneyTransferView()
+                        MoneyTransferView(viewModel:viewModel.moneyTransferViewModel)
                             .tabItem {
                                 Image(systemName: "arrow.right.arrow.left.circle")
                                 Text("Transfer")
                             }
+                        
+                        AllTransactionsView(array: viewModel.accountDetailViewModel.recentTransactions)
+                            .tabItem {
+                                Image(systemName: "eurosign.circle.fill")
+                                Text("Transactions")
+                            }
+                       
+                      
                     }
                     
                 } else {
