@@ -8,18 +8,9 @@ import Foundation
 
 class AppViewModel: ObservableObject {
     @Published var isLogged: Bool
-    let keychain = KeychainSwift()
-    var storedKey: String
 
     init() {
         isLogged = false
-
-        if let tokenvalue = keychain.get("token") {
-            storedKey = tokenvalue
-            print("tu as bien le token :", tokenvalue)
-        } else {
-            storedKey = "token is empty"
-        }
 
     }
     

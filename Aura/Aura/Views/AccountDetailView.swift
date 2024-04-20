@@ -55,15 +55,12 @@ struct AccountDetailView: View {
           
             
             Button(action: {
-                Transaction.toggle()
                 
-                if Transaction {
                     
                     Task{@MainActor in
                         
                         await viewModel.callme()
                     }
-                }
                
             }) {
                 HStack {
