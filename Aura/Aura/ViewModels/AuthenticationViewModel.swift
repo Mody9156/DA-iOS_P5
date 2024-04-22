@@ -17,7 +17,7 @@ class AuthenticationViewModel: ObservableObject {
     init(_ callback: @escaping () -> (),authentification : AuthenticationRequest) {
         self.onLoginSucceed = callback
         self.authentification =  authentification
-
+        
         if let tokenvalue = keychain.get("token") {
             storedKey = tokenvalue
         } else {
