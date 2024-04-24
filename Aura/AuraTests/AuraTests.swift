@@ -6,30 +6,83 @@
 //
 
 import XCTest
+@testable import Aura
 
 final class AuraTests: XCTestCase {
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
+    func testAuthentification() throws {
+        let authenticationRequest = AuthenticationRequest()
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        let testForAuthentification = try authenticationRequest.getSessionRequest(username: "exemple", password: "exemple1")
+        
+        XCTAssertEqual(testForAuthentification.httpMethod, "POST")
+        XCTAssertEqual(testForAuthentification.allHTTPHeaderFields?.isEmpty, false)
+        XCTAssertNotNil(testForAuthentification)
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    
+    func testAccountModel()  async throws{
+//
+        
+       
+        let appViewModel = AppViewModel()
+        let testeAccountModel = AccountModel(authenticationViewModel: appViewModel.authenticationViewModel)
+        
+        XCTAssertEqual(testeAccountModel.getRequest().httpMethod, "GET")
+        XCTAssertNotNil(testeAccountModel.url)
+        
+//
+//                let url = URL(string: "http://127.0.0.1:8080/account")!
+//                let token = "testNewtoken"
+//                let allHTTPHeaderFields = ["token":token]
+//
+//                enum Failure: Error {
+//                    case Fail
+//                }
+//
+//        struct TestAccountData: Decodable {
+//            let currentBalance: Double
+//            let transactions: [Transaction]
+//        }
+//
+//        // MARK: - Transaction
+//        struct Transaction: Decodable {
+//            var value: Double = 2.34
+//            var label: String = "apple"
+//        }
+//
+//                func getRequest() -> URLRequest {
+//
+//                    var request = URLRequest(url: url)
+//                    request.httpMethod = "GET"
+//                    request.allHTTPHeaderFields = allHTTPHeaderFields
+//                    request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "content-type")
+//
+//                    return request
+//                }
+//
+//
+//                let (data,_)  = try await testeAccountModel.session.data(for: getRequest())
+//
+//
+//        guard let json  = try? JSONDecoder().decode(TestAccountData.self, from: data)  else{
+//            throw Failure.Fail
+//        }
+//        XCTAssertEqual(json.currentBalance,20.33)
+//
+//
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        measure {
-            // Put the code you want to measure the time of here.
-        }
+    
+    func testMoneyTransferModel() throws {
+        
+        let recipient =  "apple"
+        let amount = 2.2
+        
+        
+        let appViewModel = AppViewModel()
+        let  moneyTransferModel = MoneyTransferModel(authenticationViewModel: appViewModel.authenticationViewModel)
+        XCTAssertNotNil(moneyTransferModel.getRequest(recipient: recipient, amount: amount).url)
+        XCTAssertEqual(moneyTransferModel.getRequest(recipient: recipient, amount: amount).httpMethod, "POST")
+             
+            
     }
-
 }

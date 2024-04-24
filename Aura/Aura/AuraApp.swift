@@ -27,12 +27,7 @@ struct AuraApp: App {
                                 Image(systemName: "arrow.right.arrow.left.circle")
                                 Text("Transfer")
                             }
-                        
-                        AllTransactionsView(recentTransactions: viewModel.accountDetailViewModel.recentTransactions)
-                            .tabItem {
-                                Image(systemName: "eurosign.circle.fill")
-                                Text("Transactions")
-                            }
+                       
                        
                       
                     }

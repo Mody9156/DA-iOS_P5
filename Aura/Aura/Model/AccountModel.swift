@@ -13,7 +13,7 @@ final class AccountModel {
     let keychain = KeychainSwift()
     let authenticationViewModel : AuthenticationViewModel
     
-    init(session: URLSession = URLSession(configuration: .ephemeral),authenticationViewModel : AuthenticationViewModel) {
+    init(session: URLSession = URLSession(configuration: .ephemeral),authenticationViewModel : AuthenticationViewModel ) {
         self.session = session
         self.authenticationViewModel = authenticationViewModel
     }

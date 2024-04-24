@@ -36,12 +36,14 @@ struct AuthenticationView: View {
                             .fontWeight(.semibold)
                         
                         TextField("Adresse email", text: $viewModel.username)
+                            
                             .padding()
                             .background(Color(UIColor.secondarySystemBackground))
                             .cornerRadius(8)
                             .autocapitalization(.none)
                             .keyboardType(.emailAddress)
                             .disableAutocorrection(true)
+                            
                         
                         SecureField("Mot de passe", text: $viewModel.password)
                             .padding()

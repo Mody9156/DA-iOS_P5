@@ -14,7 +14,7 @@ class AuthenticationViewModel: ObservableObject {
     var storedKey: String
     var onLoginSucceed: (() -> ())
     
-    init(_ callback: @escaping () -> (),authentification : AuthenticationRequest) {
+    init(_ callback: @escaping () -> (),authentification : AuthenticationRequest = AuthenticationRequest()) {
         self.onLoginSucceed = callback
         self.authentification =  authentification
         
@@ -30,18 +30,18 @@ class AuthenticationViewModel: ObservableObject {
 
     func login() async throws {
         let token  = try await authentification.getToken(username: username, password: password)
+        
             keychain.set(token, forKey: "token")
-      
-                if let getoken = keychain.get("token") {
+
+        if let getoken = keychain.get("token") {
                     print("Token enregistré dans la keychain :", getoken)
+                    
                 } else {
                     print("\(Failure.tokenInvalide)")
                 }
-                
+       
         onLoginSucceed()
         
     }
         
     }
-    
-
