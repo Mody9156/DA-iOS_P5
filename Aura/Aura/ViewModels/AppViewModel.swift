@@ -1,9 +1,9 @@
-//
 //  AppViewModel.swift
 //  Aura
 //
 //  Created by Vincent Saluzzo on 29/09/2023.
 //
+
 import Foundation
 
 class AppViewModel: ObservableObject {
@@ -11,28 +11,24 @@ class AppViewModel: ObservableObject {
 
     init() {
         isLogged = false
-
     }
     
     var authenticationViewModel: AuthenticationViewModel {
-        let authentification = AuthenticationRequest(session: URLSession.shared)
+        let authentification = AuthConnector(session: URLSession.shared)
         return AuthenticationViewModel({ [weak self] in
             DispatchQueue.main.async {
                 self?.isLogged = true
-
             }
-        }, authentification: authentification)
+        }, authentification: authentification, storedKey: "")
     }
     
     var accountDetailViewModel: AccountDetailViewModel {
-        let accountModel = AccountModel(session: URLSession.shared, authenticationViewModel: authenticationViewModel)
-        return AccountDetailViewModel(accountModel: accountModel)
+        let accountModel = DisplayTransactionDetails(session: URLSession.shared)
+        return AccountDetailViewModel(accountModel: accountModel, storedKey: "")
     }
     
     var moneyTransferViewModel : MoneyTransferViewModel {
-        
-        let moneyTransferModel = MoneyTransferModel( authenticationViewModel: authenticationViewModel)
-        
-        return MoneyTransferViewModel(moneyTransferModel: moneyTransferModel)
+        let moneyTransferModel = MoneyTransferService(authenticationViewModel: authenticationViewModel)
+        return MoneyTransferViewModel(moneyTransferModel: moneyTransferModel, storedKey: "")
     }
 }

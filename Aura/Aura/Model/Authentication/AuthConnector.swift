@@ -6,7 +6,7 @@
 import Foundation
 import SwiftUI
 
-final class AuthenticationRequest {
+final class AuthConnector {
     let url = URL(string:"http://127.0.0.1:8080/auth")!
     let session: URLSession
     
@@ -14,14 +14,14 @@ final class AuthenticationRequest {
         self.session = session
     }
     
-    enum Failure: Error {
+    enum AuthenticationError: Error {
         case tokenInvalide
     }
     
     func getSessionRequest(username: String, password: String) throws -> URLRequest {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        let userData = AuthRequest(username: username, password: password)
+        let userData = AuthData(username: username, password: password)
         let data = try JSONEncoder().encode(userData)
         request.httpBody = data
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -34,7 +34,7 @@ final class AuthenticationRequest {
             let token = responseJson["token"]
 
         else {
-            throw Failure.tokenInvalide
+            throw AuthenticationError.tokenInvalide
         }
  
         return token

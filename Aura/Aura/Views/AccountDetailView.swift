@@ -33,7 +33,7 @@ struct AccountDetailView: View {
                     Text("Recent Transactions")
                         .font(.headline)
                         .padding([.horizontal])
-                    ForEach(viewModel.recentTransactions.prefix(3), id: \.description) { transaction in
+                    ForEach(viewModel.recentTransactions.suffix(3), id: \.description) { transaction in
                         HStack {
                             Image(systemName: transaction.amount.contains("+") ? "arrow.up.right.circle.fill" : "arrow.down.left.circle.fill")
                                 .foregroundColor(transaction.amount.contains("+") ? .green : .red)
@@ -58,24 +58,23 @@ struct AccountDetailView: View {
             }) {
                 HStack {
                     Image(systemName: "list.bullet")
-                    Text(viewModel.transactionDetailsShown ? "Hide Transaction" : "See Transaction Details")
+                    Text( "See Transaction Details")
                 }
                 .padding()
                 .background(Color(hex: "#94A684"))
                 .foregroundColor(.white)
                 .cornerRadius(8)
             }
-            .padding([.horizontal, .bottom]).sheet(isPresented: $viewModel.transactionDetailsShown ,onDismiss: {
-                Task {
-                        await viewModel.callme()
-                }
-            }) {
+            .padding([.horizontal, .bottom]).sheet(isPresented: $viewModel.transactionDetailsShown ) {
                 AllTransactionsView(recentTransactions: viewModel.recentTransactions)
             }
             Spacer()
         }
         .onTapGesture {
             self.endEditing(true)  // This will dismiss the keyboard when tapping outside
+        }.task {
+                    await viewModel.displayNewTransactions()
+        
         }
     }
 }

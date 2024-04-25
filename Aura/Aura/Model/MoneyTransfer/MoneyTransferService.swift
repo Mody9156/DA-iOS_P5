@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class MoneyTransferModel {
+final class MoneyTransferService {
 
     let url = URL(string: "http://127.0.0.1:8080/account/transfer")!
     let session : URLSession
@@ -18,40 +18,40 @@ final class MoneyTransferModel {
         self.authenticationViewModel = authenticationViewModel
     }
 
-    enum Failure: Error {
-        case Fail,failJSONDecoder
+    enum TransferFailureReason: Error {
+        case FailedTransferRequest,HTTPStatusCodeError
         
     }
 
-    func getRequest(recipient:String,amount : Double) -> URLRequest {
+    func makeTransferURLRequest(recipient:String,amount : Double,token:String) -> URLRequest {
 
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         
-        let bodyencode = MoneyTransfer(recipient: recipient, amount: amount)
+        let bodyencode = MoneyTransferModel(recipient: recipient, amount: amount)
         let data = try? JSONEncoder().encode(bodyencode)
         request.httpBody = data
         
-        request.allHTTPHeaderFields = ["token":authenticationViewModel.storedKey]
+        request.allHTTPHeaderFields = ["token":token]
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "content-type")
         
-        print("token : n °\(authenticationViewModel.storedKey)")
+        print("token : n °\(token)")
 
         return request
     }
 
-    func fetchMoneyTransfer(recipient: String,amount:Double) async throws  {
+    func fetchMoneyTransfer(recipient: String,amount:Double,token:String) async throws  {
         do {
-            let (_,response) = try await session.data(for: getRequest(recipient: recipient, amount: amount))
+            let (_,response) = try await session.data(for: makeTransferURLRequest(recipient: recipient, amount: amount,token: token))
             
             guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else{
-                throw Failure.Fail
+                throw TransferFailureReason.HTTPStatusCodeError
             }
            return
         }
         
         catch{
-            throw Failure.Fail
+            throw TransferFailureReason.FailedTransferRequest
         }
     }
     
