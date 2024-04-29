@@ -11,11 +11,9 @@ final class MoneyTransferService {
 
     let url = URL(string: "http://127.0.0.1:8080/account/transfer")!
     let session : URLSession
-    let authenticationViewModel : AuthenticationViewModel
 
-    init(session: URLSession = URLSession(configuration: .ephemeral),authenticationViewModel : AuthenticationViewModel) {
+    init(session: URLSession = URLSession(configuration: .ephemeral)) {
         self.session = session
-        self.authenticationViewModel = authenticationViewModel
     }
 
     enum TransferFailureReason: Error {

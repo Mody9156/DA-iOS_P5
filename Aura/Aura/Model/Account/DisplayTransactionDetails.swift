@@ -36,7 +36,4 @@ final class DisplayTransactionDetails {
         }
         return json
     }
-    
 }
-    
-   

@@ -28,7 +28,7 @@ class AppViewModel: ObservableObject {
     }
     
     var moneyTransferViewModel : MoneyTransferViewModel {
-        let moneyTransferModel = MoneyTransferService(authenticationViewModel: authenticationViewModel)
+        let moneyTransferModel = MoneyTransferService()
         return MoneyTransferViewModel(moneyTransferModel: moneyTransferModel, storedKey: "")
     }
 }
