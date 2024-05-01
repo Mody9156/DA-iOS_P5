@@ -1,30 +1,23 @@
-//
-//  BasicHTTPClient.swift
-//  Aura
-//
-//  Created by KEITA on 26/04/2024.
-//
-
 import Foundation
 
-final class BasicHTTPClient: HTTPService {
+class BasicHTTPClient: HTTPService {
     
-    private let session : URLSession
+    private let session: URLSession
     
-    init(session : URLSession = URLSession.shared){
+    init(session: URLSession = URLSession.shared) {
         self.session = session
     }
-    enum failure : Error {
+    
+    enum Failure: Swift.Error {
         case requestInvalid
     }
     
-    func request(_ request : URLRequest) async throws -> (Data,URLResponse){
-        
-        let (data,response) = try await session.data(for: request)
-        guard let response = response as? HTTPURLResponse else{
-            throw failure.requestInvalid
+    func request(_ request: URLRequest) async throws -> (Data, URLResponse) {
+        let (data, response) = try await session.data(for: request)
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw Failure.requestInvalid
         }
         
-        return(data,response)
+        return (data, httpResponse)
     }
 }

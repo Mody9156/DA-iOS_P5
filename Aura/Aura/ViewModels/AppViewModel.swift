@@ -14,21 +14,19 @@ class AppViewModel: ObservableObject {
     }
     
     var authenticationViewModel: AuthenticationViewModel {
-        let authentification = AuthConnector(session: URLSession.shared)
+        let authentification = AuthConnector()
         return AuthenticationViewModel({ [weak self] in
             DispatchQueue.main.async {
                 self?.isLogged = true
             }
-        }, authentification: authentification, storedKey: "")
+        })
     }
     
     var accountDetailViewModel: AccountDetailViewModel {
-        let accountModel = DisplayTransactionDetails(session: URLSession.shared)
-        return AccountDetailViewModel(accountModel: accountModel, storedKey: "")
+        return AccountDetailViewModel(accountModel: DisplayTransactionDetails())
     }
     
     var moneyTransferViewModel : MoneyTransferViewModel {
-        let moneyTransferModel = MoneyTransferService()
-        return MoneyTransferViewModel(moneyTransferModel: moneyTransferModel, storedKey: "")
+        return MoneyTransferViewModel(moneyTransferModel: MoneyTransferService())
     }
 }

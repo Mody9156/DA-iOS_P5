@@ -1,28 +1,19 @@
-//
-//  MoneyTransferModel.swift
-//  Aura
-//
-//  Created by KEITA on 18/04/2024.
-//
-
 import Foundation
 
-final class MoneyTransferService {
+class MoneyTransferService {
+    let httpservice: HTTPService
 
-    let url = URL(string: "http://127.0.0.1:8080/account/transfer")!
-    let session : URLSession
-
-    init(session: URLSession = URLSession(configuration: .ephemeral)) {
-        self.session = session
+    init(httpservice: HTTPService = BasicHTTPClient()) {
+        self.httpservice = httpservice
     }
 
     enum TransferFailureReason: Error {
-        case FailedTransferRequest,HTTPStatusCodeError
-        
+        case failedTransferRequest
+        case httpStatusCodeError
     }
 
-    func makeTransferURLRequest(recipient:String,amount : Double,token:String) -> URLRequest {
-
+    func makeTransferURLRequest(recipient: String, amount: Double, token: String) -> URLRequest {
+        let url = URL(string: "http://127.0.0.1:8080/account/transfer")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         
@@ -30,7 +21,7 @@ final class MoneyTransferService {
         let data = try? JSONEncoder().encode(bodyencode)
         request.httpBody = data
         
-        request.allHTTPHeaderFields = ["token":token]
+        request.allHTTPHeaderFields = ["token": token]
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "content-type")
         
         print("token : n °\(token)")
@@ -38,22 +29,16 @@ final class MoneyTransferService {
         return request
     }
 
-    func fetchMoneyTransfer(recipient: String,amount:Double,token:String) async throws  {
+    func fetchMoneyTransfer(recipient: String, amount: Double, token: String) async throws {
         do {
-            let (_,response) = try await session.data(for: makeTransferURLRequest(recipient: recipient, amount: amount,token: token))
+            let (_, response) = try await httpservice.request(makeTransferURLRequest(recipient: recipient, amount: amount, token: token))
             
-            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else{
-                throw TransferFailureReason.HTTPStatusCodeError
+            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+                throw TransferFailureReason.httpStatusCodeError
             }
-           return
-        }
-        
-        catch{
-            throw TransferFailureReason.FailedTransferRequest
+            return
+        } catch {
+            throw TransferFailureReason.failedTransferRequest
         }
     }
-    
-
 }
-
-

@@ -1,23 +1,19 @@
-//  import XCTest @testable import Aura.swift
-//  AuraTests
-//
-//  Created by KEITA on 29/04/2024.
-
 import XCTest
 @testable import Aura
 
-final class import_XCTest__testable_import_Aura: XCTestCase {
-    
-    let displayTransactionDetails = DisplayTransactionDetails(session: URLSession.shared)
+final class TestdisplayTransactionDetails: XCTestCase {
+    // Given
+    let displayTransactionDetails = DisplayTransactionDetails(httpservice: MockHTTPService())
 
     func testmakeMultiTransactionDetailsURLRequest() throws {
+        // Given
         let tokenoforAccount = "token"
         let url = URL(string: "http://exemple/account")!
         var expectedRequest = URLRequest(url: url)
         expectedRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "content-type")
-
+        // When
         let makeMultiTransactionDetailsURLRequest = displayTransactionDetails.makeMultiTransactionDetailsURLRequest(tokenoforAccount)
-        
+        // Then
         XCTAssertEqual(makeMultiTransactionDetailsURLRequest.httpMethod, "GET")
         XCTAssertNotNil(makeMultiTransactionDetailsURLRequest.allHTTPHeaderFields?["token"], tokenoforAccount)
         XCTAssertNotNil(makeMultiTransactionDetailsURLRequest.url)
@@ -26,6 +22,7 @@ final class import_XCTest__testable_import_Aura: XCTestCase {
     }
     
     func testfetchAccountDetails() async throws {
+        // Given
         struct TransactionDisplayModel: Decodable {
             var currentBalance: Double = 22.33
             let transactions: [Transaction]
@@ -44,17 +41,17 @@ final class import_XCTest__testable_import_Aura: XCTestCase {
         let tokenoforAccount = "token"
        
         let makeMultiTransactionDetailsURLRequest = displayTransactionDetails.makeMultiTransactionDetailsURLRequest(tokenoforAccount)
-
+        // When
         func getFetchAccountDetails() async throws -> TransactionDisplayModel {
-            let (data,_) = try await URLSession(configuration: .ephemeral).data(for: makeMultiTransactionDetailsURLRequest)
+            let (data, _) = try await URLSession(configuration: .ephemeral).data(for: makeMultiTransactionDetailsURLRequest)
 
-            guard let JsonDecode = try? JSONDecoder().decode(TransactionDisplayModel.self, from: data) else {
+            guard let jsonDecode = try? JSONDecoder().decode(TransactionDisplayModel.self, from: data) else {
                 throw TransactionDetailsRetrievalFailure.FetchAccountDetailsDecodingFailure
             }
-            XCTAssertNotNil(JsonDecode)
+            XCTAssertNotNil(jsonDecode)
             do {
                 let jsondecode = try await displayTransactionDetails.fetchAccountDetails(tokenoforAccount)
-                
+               
                 XCTAssertEqual(jsondecode.currentBalance, 23.33)
                 XCTAssertEqual(jsondecode.transactions.count, 1)
                 XCTAssertEqual(jsondecode.transactions[0].value, 22.44)
@@ -64,7 +61,15 @@ final class import_XCTest__testable_import_Aura: XCTestCase {
                 XCTFail("Une erreur s'est produite lors de la récupération des détails du compte : \(error)")
             }
 
-            return JsonDecode
+            return jsonDecode
+        }
+    }
+    
+    class MockHTTPService : HTTPService {
+         func request(_ request : URLRequest) async throws -> (Data,URLResponse){
+             let tokenData = try JSONEncoder().encode(["token": "validToken"])
+             let response = HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: nil, headerFields: nil)!
+                    return (tokenData, response)
         }
     }
 }

@@ -12,16 +12,17 @@
 		23BCB7A32BBD8153000D7229 /* DisplayTransactionDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BCB7A22BBD8153000D7229 /* DisplayTransactionDetails.swift */; };
 		23BE002C2BD0FFCE00FD3068 /* MoneyTransferService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BE002B2BD0FFCE00FD3068 /* MoneyTransferService.swift */; };
 		23C51C472BC008CF00EFC339 /* KeychainSwiftDistrib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C51C462BC008CF00EFC339 /* KeychainSwiftDistrib.swift */; };
+		23D308922BE0F4A700D95DBD /* TestaccountDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D308912BE0F4A700D95DBD /* TestaccountDetailViewModel.swift */; };
+		23D308942BE12D7500D95DBD /* TestMoneyTransferViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D308932BE12D7500D95DBD /* TestMoneyTransferViewModel.swift */; };
+		23D308972BE2789E00D95DBD /* TestAppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D308962BE2789E00D95DBD /* TestAppViewModel.swift */; };
 		23D433402BDFD3B600B933EB /* import XCTest @testable import Aura.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D4333F2BDFD3B600B933EB /* import XCTest @testable import Aura.swift */; };
 		23D433452BDFE9E000B933EB /* TestMoneyTransferService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D433442BDFE9E000B933EB /* TestMoneyTransferService.swift */; };
 		23D433472BE003B200B933EB /* TestAuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D433462BE003B200B933EB /* TestAuthenticationViewModel.swift */; };
 		23D91C892BDA39D8007460AE /* AuthData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D91C882BDA39D8007460AE /* AuthData.swift */; };
 		23D91C8C2BDA3A62007460AE /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D91C8B2BDA3A62007460AE /* Account.swift */; };
 		23D91C8F2BDA3AA9007460AE /* MoneyTransferModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D91C8E2BDA3AA9007460AE /* MoneyTransferModel.swift */; };
-		23D91C912BDA9513007460AE /* token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D91C902BDA9513007460AE /* token.swift */; };
 		23E2BE7B2BDBB94D007ED636 /* HTTPService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E2BE7A2BDBB94C007ED636 /* HTTPService.swift */; };
 		23E2BE7D2BDBBA02007ED636 /* BasicHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E2BE7C2BDBBA02007ED636 /* BasicHTTPClient.swift */; };
-		23E2BE8B2BDBDFE4007ED636 /* TestAuthConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E2BE892BDBDFE4007ED636 /* TestAuthConnector.swift */; };
 		23E8BC512BB2C2D800B7A5D9 /* AuraTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E8BC502BB2C2D800B7A5D9 /* AuraTests.swift */; };
 		23EDD74E2BD022D600CF2AE1 /* AllTransactionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EDD74D2BD022D600CF2AE1 /* AllTransactionsView.swift */; };
 		53D4187C2AC7099A0070ADB1 /* AuraApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D4187B2AC7099A0070ADB1 /* AuraApp.swift */; };
@@ -54,16 +55,17 @@
 		23BCB7A22BBD8153000D7229 /* DisplayTransactionDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayTransactionDetails.swift; sourceTree = "<group>"; };
 		23BE002B2BD0FFCE00FD3068 /* MoneyTransferService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyTransferService.swift; sourceTree = "<group>"; };
 		23C51C462BC008CF00EFC339 /* KeychainSwiftDistrib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainSwiftDistrib.swift; sourceTree = "<group>"; };
+		23D308912BE0F4A700D95DBD /* TestaccountDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestaccountDetailViewModel.swift; sourceTree = "<group>"; };
+		23D308932BE12D7500D95DBD /* TestMoneyTransferViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestMoneyTransferViewModel.swift; sourceTree = "<group>"; };
+		23D308962BE2789E00D95DBD /* TestAppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAppViewModel.swift; sourceTree = "<group>"; };
 		23D4333F2BDFD3B600B933EB /* import XCTest @testable import Aura.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "import XCTest @testable import Aura.swift"; sourceTree = "<group>"; };
 		23D433442BDFE9E000B933EB /* TestMoneyTransferService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestMoneyTransferService.swift; sourceTree = "<group>"; };
 		23D433462BE003B200B933EB /* TestAuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAuthenticationViewModel.swift; sourceTree = "<group>"; };
 		23D91C882BDA39D8007460AE /* AuthData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthData.swift; sourceTree = "<group>"; };
 		23D91C8B2BDA3A62007460AE /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		23D91C8E2BDA3AA9007460AE /* MoneyTransferModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyTransferModel.swift; sourceTree = "<group>"; };
-		23D91C902BDA9513007460AE /* token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = token.swift; sourceTree = "<group>"; };
 		23E2BE7A2BDBB94C007ED636 /* HTTPService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPService.swift; sourceTree = "<group>"; };
 		23E2BE7C2BDBBA02007ED636 /* BasicHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicHTTPClient.swift; sourceTree = "<group>"; };
-		23E2BE892BDBDFE4007ED636 /* TestAuthConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAuthConnector.swift; sourceTree = "<group>"; };
 		23E8BC4E2BB2C2D800B7A5D9 /* AuraTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AuraTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		23E8BC502BB2C2D800B7A5D9 /* AuraTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuraTests.swift; sourceTree = "<group>"; };
 		23EDD74D2BD022D600CF2AE1 /* AllTransactionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTransactionsView.swift; sourceTree = "<group>"; };
@@ -108,7 +110,6 @@
 				23D91C8A2BDA3A00007460AE /* Account */,
 				23D91C872BDA39A2007460AE /* Authentication */,
 				23C51C452BC008BF00EFC339 /* Keychain */,
-				23BCB7A02BBD4E64000D7229 /* TransactionsModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -117,9 +118,16 @@
 			isa = PBXGroup;
 			children = (
 				23C51C462BC008CF00EFC339 /* KeychainSwiftDistrib.swift */,
-				23D91C902BDA9513007460AE /* token.swift */,
 			);
 			path = Keychain;
+			sourceTree = "<group>";
+		};
+		23D308952BE2788300D95DBD /* ApplViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				23D308962BE2789E00D95DBD /* TestAppViewModel.swift */,
+			);
+			path = ApplViewModel;
 			sourceTree = "<group>";
 		};
 		23D91C872BDA39A2007460AE /* Authentication */ = {
@@ -134,6 +142,7 @@
 		23D91C8A2BDA3A00007460AE /* Account */ = {
 			isa = PBXGroup;
 			children = (
+				23BCB7A02BBD4E64000D7229 /* TransactionsModel.swift */,
 				23BCB7A22BBD8153000D7229 /* DisplayTransactionDetails.swift */,
 				23D91C8B2BDA3A62007460AE /* Account.swift */,
 			);
@@ -195,6 +204,7 @@
 		23E2BE822BDBD902007ED636 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				23D308952BE2788300D95DBD /* ApplViewModel */,
 				23E2BE862BDBD934007ED636 /* Authentification */,
 				23E2BE852BDBD92C007ED636 /* Account */,
 				23E2BE842BDBD917007ED636 /* MoneyTransfer */,
@@ -205,6 +215,7 @@
 		23E2BE842BDBD917007ED636 /* MoneyTransfer */ = {
 			isa = PBXGroup;
 			children = (
+				23D308932BE12D7500D95DBD /* TestMoneyTransferViewModel.swift */,
 			);
 			path = MoneyTransfer;
 			sourceTree = "<group>";
@@ -212,6 +223,7 @@
 		23E2BE852BDBD92C007ED636 /* Account */ = {
 			isa = PBXGroup;
 			children = (
+				23D308912BE0F4A700D95DBD /* TestaccountDetailViewModel.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -229,7 +241,6 @@
 			children = (
 				23E2BE822BDBD902007ED636 /* ViewModels */,
 				23E2BE812BDBD8F5007ED636 /* Model */,
-				23E2BE892BDBDFE4007ED636 /* TestAuthConnector.swift */,
 			);
 			path = AuraTests;
 			sourceTree = "<group>";
@@ -405,10 +416,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23D308922BE0F4A700D95DBD /* TestaccountDetailViewModel.swift in Sources */,
 				23D433472BE003B200B933EB /* TestAuthenticationViewModel.swift in Sources */,
 				23E8BC512BB2C2D800B7A5D9 /* AuraTests.swift in Sources */,
+				23D308972BE2789E00D95DBD /* TestAppViewModel.swift in Sources */,
 				23D433402BDFD3B600B933EB /* import XCTest @testable import Aura.swift in Sources */,
-				23E2BE8B2BDBDFE4007ED636 /* TestAuthConnector.swift in Sources */,
+				23D308942BE12D7500D95DBD /* TestMoneyTransferViewModel.swift in Sources */,
 				23D433452BDFE9E000B933EB /* TestMoneyTransferService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -424,7 +437,6 @@
 				53D4189B2AC711990070ADB1 /* AuthenticationViewModel.swift in Sources */,
 				23D91C8C2BDA3A62007460AE /* Account.swift in Sources */,
 				53D4189D2AC715AA0070ADB1 /* AccountDetailViewModel.swift in Sources */,
-				23D91C912BDA9513007460AE /* token.swift in Sources */,
 				23BCB7A32BBD8153000D7229 /* DisplayTransactionDetails.swift in Sources */,
 				53D418912AC70A920070ADB1 /* AuthenticationView.swift in Sources */,
 				23C51C472BC008CF00EFC339 /* KeychainSwiftDistrib.swift in Sources */,

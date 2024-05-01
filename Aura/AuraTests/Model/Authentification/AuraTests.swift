@@ -1,9 +1,12 @@
 import XCTest
 @testable import Aura
 
-final class TestAuthConnector: XCTestCase {
+final class TestsAuthConnector: XCTestCase {
+    
+    let authConnector: AuthConnector = AuthConnector(httpservice: MockHTTPService())
     
     func testgetSessionRequest() throws {
+        // Given
         struct EncodeAuth: Encodable {
             let username: String
             let password: String
@@ -15,14 +18,14 @@ final class TestAuthConnector: XCTestCase {
         let encodeAuth = EncodeAuth(username: username, password: password)
         let data = try? JSONEncoder().encode(encodeAuth)
         
-        let useExpectedURL = URL(string: "http://127.0.0.1:8080/auth)")!
+        let useExpectedURL = URL(string: "http://exemple/auh)")!
         
         var request = URLRequest(url: useExpectedURL)
         request.httpBody = data
         
-        let authConnector = AuthConnector(session: URLSession.shared)
+        // When
         let useauthConnector = try authConnector.getSessionRequest(username: username, password: password)
-        
+        // Then
         XCTAssertEqual(useauthConnector.httpMethod, "POST")
         XCTAssertNotNil(useauthConnector.url)
         XCTAssertEqual(useauthConnector.httpBody, request.httpBody)
@@ -31,29 +34,24 @@ final class TestAuthConnector: XCTestCase {
     
     func testgetToken() async throws {
         
-        enum AuthenticationError: Error {
-            case tokenInvalide
-        }
-        
-        let authConnector = AuthConnector()
+        // Given
         let username = "exemple"
         let password = "test111"
-        let token = "tokenforAuth"
-        
-        let getToken = try? await authConnector.getToken(username: username, password: password)
-        let useauthConnector = try authConnector.getSessionRequest(username: username, password: password)
-             
-        func getToken(username: String, password: String) async throws -> String {
-            let (data, _) = try await URLSession(configuration: .ephemeral).data(for: useauthConnector)
-            guard let responseJson = try? JSONDecoder().decode([String: String].self, from: data),
-                  let token = responseJson[token]
-            else {
-                throw AuthenticationError.tokenInvalide
-            }
-            
-            return token
+        let getToken = "tokenisvalide"
+     
+        // When
+        do {
+            let useAuthConnector = try await authConnector.getToken(username: username, password: password)
+        } catch {
+            XCTFail("Error retrieving token: \(error)")
         }
-        
-        XCTAssertEqual(getToken, getToken)
+    }
+    
+    class MockHTTPService : HTTPService {
+         func request(_ request : URLRequest) async throws -> (Data,URLResponse) {
+             let tokenData = try JSONEncoder().encode(["token": "validToken"])
+             let response = HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: nil, headerFields: nil)!
+             return (tokenData, response)
+        }
     }
 }
