@@ -24,7 +24,6 @@ class DisplayTransactionDetails {
 
     func fetchAccountDetails(_ token: String) async throws -> TransactionDisplayModel {
         let (data,_) = try await httpservice.request(makeMultiTransactionDetailsURLRequest(token))
-        
       
         guard let json = try? JSONDecoder().decode(TransactionDisplayModel.self, from: data) else {
             throw TransactionDetailsRetrievalFailure.fetchAccountDetailsDecodingFailure

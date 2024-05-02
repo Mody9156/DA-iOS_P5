@@ -111,7 +111,7 @@ final class AuthConnectorTests: XCTestCase {
             
              func request(_ request: URLRequest) async throws -> (Data, URLResponse) {
                 guard let result = mockResult else {
-                    throw NSError(domain: "", code: 0, userInfo: nil) // Une erreur fictive si le résultat n'est pas défini
+                    throw NSError(domain: "", code: 0, userInfo: nil)
                 }
                 return result
             }

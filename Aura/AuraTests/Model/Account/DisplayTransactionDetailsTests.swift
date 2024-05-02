@@ -32,53 +32,48 @@ final class DisplayTransactionDetailsTests: XCTestCase {
         XCTAssertEqual(makeMultiTransactionDetailsURLRequest.value(forHTTPHeaderField: "content-type"), expectedRequest.value(forHTTPHeaderField: "content-type"))
     }
 //
-//    func testfetchAccountDetails() async throws {
-//        // Given
-//        struct TransactionDisplayModel: Decodable {
-//            var currentBalance: Double = 22.33
-//            let transactions: [Transaction]
-//        }
-//
-//        // MARK: - Transaction
-//        struct Transaction: Decodable {
-//            var value: Double = 22.44
-//            var label: String = "Apple"
-//        }
-//
-//        enum TransactionDetailsRetrievalFailure: Error {
-//            case FetchAccountDetailsDecodingFailure
-//        }
-//
-//        let tokenoforAccount = "token"
-//
-//        let makeMultiTransactionDetailsURLRequest = displayTransactionDetails.makeMultiTransactionDetailsURLRequest(tokenoforAccount)
-//        // When
-//
-//        func getFetchAccountDetails() async throws -> TransactionDisplayModel {
-//            let (data, _) = try await URLSession(configuration: .ephemeral).data(for: makeMultiTransactionDetailsURLRequest)
-//
-//            guard let jsonDecode = try? JSONDecoder().decode(TransactionDisplayModel.self, from: data) else {
-//                throw TransactionDetailsRetrievalFailure.FetchAccountDetailsDecodingFailure
-//            }
-//            XCTAssertNotNil(jsonDecode)
-//            do {
-//                let jsondecode = try await displayTransactionDetails.fetchAccountDetails(tokenoforAccount)
-//
-//                XCTAssertEqual(jsondecode.currentBalance, 23.33)
-//                XCTAssertEqual(jsondecode.transactions.count, 1)
-//                XCTAssertEqual(jsondecode.transactions[0].value, 22.44)
-//                XCTAssertEqual(jsondecode.transactions[0].label, "Apple")
-//
-//            } catch {
-//                XCTFail("Une erreur s'est produite lors de la récupération des détails du compte : \(error)")
-//            }
-//
-//            return jsonDecode
-//        }
-//    }
-    
-    
     func testfetchAccountDetails() async throws {
+        let jsonData = """
+                {
+                    "currentBalance": 100.0,
+                    "transactions": [
+                        {
+                            "value": 50.0,
+                            "label": "Transaction 1"
+                        },
+                        {
+                            "value": 75.0,
+                            "label": "Transaction 2"
+                        }
+                    ]
+                }
+                """.data(using: .utf8)!
+        let urlresponse = HTTPURLResponse(url: URL(string: "https//exemple.com")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
+        
+        let data : (Data,HTTPURLResponse) = (jsonData,urlresponse)
+        (displayTransactionDetails.httpservice as! MockHTTPServiceTransactionDetails).data = data
+        
+
+        do{
+            let recupdata = try await displayTransactionDetails.fetchAccountDetails("token")
+           
+            XCTAssertNoThrow(recupdata)
+            XCTAssertEqual(recupdata.currentBalance, 100.0)
+            XCTAssertEqual(recupdata.transactions.count, 2)
+            XCTAssertEqual(recupdata.transactions[0].value, 50.0)
+            XCTAssertEqual(recupdata.transactions[1].value, 75.0)
+            XCTAssertEqual(recupdata.transactions[0].label, "Transaction 1")
+            XCTAssertEqual(recupdata.transactions[1].label, "Transaction 2")
+        }catch let error as DisplayTransactionDetails.TransactionDetailsRetrievalFailure{
+            XCTAssertEqual(error, .fetchAccountDetailsDecodingFailure)
+        }catch{
+            XCTFail("Unexpected error: \(error)")
+            XCTAssertNil(data)
+        }
+    }
+    
+    
+    func testfetchAccountDetail() async throws {
         let jsondecode = "{\"test\":\"exempl\"}".data(using: .utf8)!
         let urlresponse = HTTPURLResponse(url: URL(string: "https//exemple.com")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
         let data : (Data,HTTPURLResponse) = (jsondecode,urlresponse)
@@ -99,7 +94,7 @@ final class DisplayTransactionDetailsTests: XCTestCase {
     
     class MockHTTPServiceTransactionDetails : HTTPService {
         
-        var data : (Data,URLResponse)? = nil
+        var data : (Data,URLResponse)?
         
          func request(_ request : URLRequest) async throws -> (Data,URLResponse){
             
