@@ -35,7 +35,11 @@ final class TestAccountDetailViewModel: XCTestCase {
     
     class TestDisplayTransactionDetails : DisplayTransactionDetails {
         
-        
+        enum TransactionDetailsRetrievalFailure: Error {
+            case fetchAccountDetailsDecodingFailure
+        }
+
+
         override func makeMultiTransactionDetailsURLRequest(_ token:String) -> URLRequest {
             let url = URL(string: "http://127.0.0.1:8080/account")!
             let request = URLRequest(url: url)
@@ -46,7 +50,7 @@ final class TestAccountDetailViewModel: XCTestCase {
         override func fetchAccountDetails(_ token : String ) async throws -> TransactionDisplayModel {
             let (data, _) = try await URLSession(configuration: .ephemeral).data(for: makeMultiTransactionDetailsURLRequest(token))
             guard let json = try? JSONDecoder().decode(TransactionDisplayModel.self, from: data) else {
-                throw TransactionDetailsRetrievalFailure.FetchAccountDetailsDecodingFailure
+                throw TransactionDetailsRetrievalFailure.fetchAccountDetailsDecodingFailure
             }
             return json
         }

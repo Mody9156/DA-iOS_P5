@@ -1,9 +1,22 @@
 import XCTest
 @testable import Aura
 
-final class TestsAuthConnector: XCTestCase {
+final class AuthConnectorTests: XCTestCase {
     
-    let authConnector: AuthConnector = AuthConnector(httpservice: MockHTTPService())
+  
+        var authConnector: AuthConnector!
+        
+        override func setUp() {
+            super.setUp()
+            // Initialisation de votre AuthConnector avec un HTTPService fictif pour les tests
+            authConnector = AuthConnector(httpservice: MockHTTPService())
+        }
+        
+        override func tearDown() {
+            // Nettoyage après chaque test si nécessaire
+            authConnector = nil
+            super.tearDown()
+        }
     
     func testgetSessionRequest() throws {
         // Given
@@ -31,27 +44,76 @@ final class TestsAuthConnector: XCTestCase {
         XCTAssertEqual(useauthConnector.httpBody, request.httpBody)
         XCTAssertNotNil(useauthConnector.allHTTPHeaderFields)
     }
-    
-    func testgetToken() async throws {
         
-        // Given
-        let username = "exemple"
-        let password = "test111"
-        let getToken = "tokenisvalide"
-     
-        // When
-        do {
-            let useAuthConnector = try await authConnector.getToken(username: username, password: password)
-        } catch {
-            XCTFail("Error retrieving token: \(error)")
+        // Test de la fonction getToken avec une réponse HTTP valide et un JSON valide
+        func testSuccessfulTokenDecoding() async {
+            // Given
+            let validTokenData = "{\"token\": \"validToken\"}".data(using: .utf8)!
+            let mockResponse = HTTPURLResponse(url: URL(string: "http://example.com")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
+            let mockResult: (Data, HTTPURLResponse) = (validTokenData, mockResponse)
+            (authConnector.httpservice as! MockHTTPService).mockResult = mockResult
+            
+            // When
+            do {
+                let token = try await authConnector.getToken(username: "validUsername", password: "validPassword")
+                
+                // Then
+                XCTAssertEqual(token, "validToken")
+            } catch {
+                XCTFail("Unexpected error: \(error)")
+            }
+        }
+        
+        // Test de la fonction getToken avec une réponse HTTP invalide
+        func testInvalidHTTPResponse() async {
+            // Given
+            let mockResponse = HTTPURLResponse(url: URL(string: "http://example.com")!, statusCode: 404, httpVersion: nil, headerFields: nil)!
+            let mockResult: (Data, HTTPURLResponse) = (Data(), mockResponse)
+            (authConnector.httpservice as! MockHTTPService).mockResult = mockResult
+            
+            // When
+            do {
+                _ = try await authConnector.getToken(username: "validUsername", password: "validPassword")
+                
+                // Then
+                XCTFail("Expected invalid response error")
+            } catch let error as AuthConnector.AuthenticationError {
+                XCTAssertEqual(error, .invalidResponse)
+            } catch {
+                XCTFail("Unexpected error: \(error)")
+            }
+        }
+        
+        // Test de la fonction getToken avec un JSON invalide
+        func testInvalidJSONResponse() async {
+            // Given
+            let invalidJSONData = "{\"invalid\": \"json\"}".data(using: .utf8)!
+            let mockResponse = HTTPURLResponse(url: URL(string: "http://example.com")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
+            let mockResult: (Data, HTTPURLResponse) = (invalidJSONData, mockResponse)
+            (authConnector.httpservice as! MockHTTPService).mockResult = mockResult
+            
+            // When
+            do {
+                _ = try await authConnector.getToken(username: "validUsername", password: "validPassword")
+                
+                // Then
+                XCTFail("Expected decoding error")
+            } catch let error as AuthConnector.AuthenticationError {
+                XCTAssertEqual(error, .tokenInvalide)
+            } catch {
+                XCTFail("Unexpected error: \(error)")
+            }
+        }
+        
+        // Mock HTTPService utilisé pour simuler les réponses HTTP
+        class MockHTTPService : HTTPService {
+            var mockResult: (Data, HTTPURLResponse)?
+            
+             func request(_ request: URLRequest) async throws -> (Data, URLResponse) {
+                guard let result = mockResult else {
+                    throw NSError(domain: "", code: 0, userInfo: nil) // Une erreur fictive si le résultat n'est pas défini
+                }
+                return result
+            }
         }
     }
-    
-    class MockHTTPService : HTTPService {
-         func request(_ request : URLRequest) async throws -> (Data,URLResponse) {
-             let tokenData = try JSONEncoder().encode(["token": "validToken"])
-             let response = HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: nil, headerFields: nil)!
-             return (tokenData, response)
-        }
-    }
-}

@@ -1,7 +1,7 @@
 import XCTest
 @testable import Aura
 
-final class TestMoneyTransferService: XCTestCase {
+final class MoneyTransferServiceTests: XCTestCase {
     
     // Given
     struct ExempleforMoneyTransferModel : Encodable {
@@ -51,9 +51,9 @@ final class TestMoneyTransferService: XCTestCase {
                 return
             } catch let error as MoneyTransferService.TransferFailureReason {
                 switch error {
-                case .FailedTransferRequest:
+                case .failedTransferRequest:
                     XCTFail("La requête de transfert d'argent a échoué")
-                case .HTTPStatusCodeError:
+                case .httpStatusCodeError:
                     XCTFail("Le serveur a renvoyé un code d'état HTTP différent de 200")
                 }
             } catch {

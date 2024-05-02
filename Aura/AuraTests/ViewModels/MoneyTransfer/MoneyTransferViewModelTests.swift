@@ -1,8 +1,8 @@
 import XCTest
 @testable import Aura
 
-final class TestMoneyTransferViewModel: XCTestCase {
-    let moneyTransferViewModel = MoneyTransferViewModel(moneyTransferModel: TestMoneyTransferService())
+final class MoneyTransferViewModelTests: XCTestCase {
+    let moneyTransferViewModel = MoneyTransferViewModel(moneyTransferModel: MoneyTransferServiceTests())
     let tesKeychain = TesKeychain()
    
     func testsendAllEmpty() async throws {
@@ -36,6 +36,8 @@ final class TestMoneyTransferViewModel: XCTestCase {
     }
     
     func testRecipientEmpty() async throws {
+        //Given
+        
         // When
         moneyTransferViewModel.recipient = ""
         moneyTransferViewModel.amount = "33.33"
@@ -50,7 +52,7 @@ final class TestMoneyTransferViewModel: XCTestCase {
         }
     }
     
-    class TestMoneyTransferService : MoneyTransferService {
+    class MoneyTransferServiceTests : MoneyTransferService {
         let amount: String = "22"
         let token = "token"
         

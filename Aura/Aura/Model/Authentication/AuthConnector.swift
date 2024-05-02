@@ -30,9 +30,9 @@ class AuthConnector {
         guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
             throw AuthenticationError.invalidResponse
         }
-        
-        guard let responseJson = try? JSONDecoder().decode([String: String].self, from: data),
-              let token = responseJson["token"]
+
+        guard let jsonDecode = try? JSONDecoder().decode([String: String].self, from: data),
+              let token = jsonDecode["token"]
         else {
             throw AuthenticationError.tokenInvalide
         }

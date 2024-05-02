@@ -8,7 +8,7 @@ class DisplayTransactionDetails {
     }
 
     enum TransactionDetailsRetrievalFailure: Error {
-        case fetchAccountDetailsDecodingFailure
+        case fetchAccountDetailsDecodingFailure,fetchAccountDetailsResponseFailure
     }
 
     func makeMultiTransactionDetailsURLRequest(_ token: String) -> URLRequest {
@@ -23,7 +23,9 @@ class DisplayTransactionDetails {
     }
 
     func fetchAccountDetails(_ token: String) async throws -> TransactionDisplayModel {
-        let (data, _) = try await httpservice.request(makeMultiTransactionDetailsURLRequest(token))
+        let (data,_) = try await httpservice.request(makeMultiTransactionDetailsURLRequest(token))
+        
+      
         guard let json = try? JSONDecoder().decode(TransactionDisplayModel.self, from: data) else {
             throw TransactionDetailsRetrievalFailure.fetchAccountDetailsDecodingFailure
         }

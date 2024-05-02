@@ -41,7 +41,6 @@ class AccountDetailViewModel: ObservableObject {
                     TransactionsModel(description: $0.label, amount: String($0.value))
                 }
                 recentTransactions.append(contentsOf: transactions)
-                keychain.delete("token")
 
             } else {
                 print(Failure.tokenInvalide)
