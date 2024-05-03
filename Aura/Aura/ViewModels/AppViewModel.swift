@@ -14,12 +14,11 @@ class AppViewModel: ObservableObject {
     }
     
     var authenticationViewModel: AuthenticationViewModel {
-        let authentification = AuthConnector()
         return AuthenticationViewModel({ [weak self] in
             DispatchQueue.main.async {
                 self?.isLogged = true
             }
-        })
+        },authentification:AuthConnector())
     }
     
     var accountDetailViewModel: AccountDetailViewModel {

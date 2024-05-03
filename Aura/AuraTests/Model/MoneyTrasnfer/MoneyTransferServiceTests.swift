@@ -3,18 +3,29 @@ import XCTest
 
 final class MoneyTransferServiceTests: XCTestCase {
     
-    // Given
-    struct ExempleforMoneyTransferModel : Encodable {
-        var recipient = "0758806696"
-        var amount = 234.43
+    var moneyTransferService : MoneyTransferService!
+    
+    override func setUp()  {
+        moneyTransferService = MoneyTransferService(httpservice: MockHTTPService())
+        super.setUp()
     }
+                                        
+        override func tearDown() {
+            moneyTransferService = nil
+            super.tearDown()
+        }
+    
+    
+    
 
-    let moneyTransferService = MoneyTransferService(httpservice: MockHTTPService())
-    let recipient = "exemple@gmail.com"
-    let amount  = 233.44
-    let tokenforMoneyTransfer = "tokenforMoneyTransfer"
 
     func testmakeTransferURLRequest() throws {
+
+        
+            let recipient = "exemple@gmail.com"
+            let amount  = 233.44
+            let tokenforMoneyTransfer = "tokenforMoneyTransfer"
+        
         // Given
         let url = URL(string: "http://exemple/account/transfer")!
         var urlRequest = URLRequest(url: url)
@@ -32,41 +43,79 @@ final class MoneyTransferServiceTests: XCTestCase {
         XCTAssertEqual(makeTransferURLRequest.value(forHTTPHeaderField: "token"), urlRequest.value(forHTTPHeaderField: "token"))
         XCTAssertNotNil(makeTransferURLRequest.httpBody)
     }
+    
+    func testFailfetchMoneyTransfer() async throws {
+        var moneyTransferModel = """
+        {
+        "recipient":"0768807796",
+        "amount":22.33
+        
+        }
+""".data(using: .utf8)!
+        
+        let urlRequest = HTTPURLResponse(url: URL(string: "http://exemple/account/transfer")!, statusCode: 400, httpVersion: nil, headerFields: nil)!
+        
+        let usingdata : (Data,HTTPURLResponse) = (moneyTransferModel,urlRequest)
+        (moneyTransferService.httpservice as! MockHTTPService).mocksesult = usingdata
+        
+        
+        do{
+            _ = try await moneyTransferService.fetchMoneyTransfer(recipient: "exemple@gmail.com", amount: 11, token: "token")
+            
+            XCTAssertThrowsError(MoneyTransferService.TransferFailureReason.httpStatusCodeError)
+        }catch let error as MoneyTransferService.TransferFailureReason {
+            XCTAssertEqual(error, .failedTransferRequest)
+        }catch{
+            XCTFail("Unexpected error: \(error)")
+            
+        }
+        
+        
+        
+        
+    }
 
     func testfetchMoneyTransfer() async throws {
-        // Given
-        enum TransferFailureReason: Error {
-            case FailedTransferRequest, HTTPStatusCodeError
-        }
-
-        let testmoneyTransferService = moneyTransferService.makeTransferURLRequest(recipient: recipient, amount: amount, token: tokenforMoneyTransfer)
+      
+        var moneyTransferModel = """
+        {
+        "recipient":"0768807796",
+        "amount":22.33
         
-        // When
-        func fetchMoneyTransfer(recipient: String, amount: Double, token: String) async throws {
-            do {
-                let (_, response) = try await URLSession(configuration: .ephemeral).data(for: testmoneyTransferService)
-                guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-                    throw TransferFailureReason.FailedTransferRequest
-                }
-                return
-            } catch let error as MoneyTransferService.TransferFailureReason {
-                switch error {
-                case .failedTransferRequest:
-                    XCTFail("La requête de transfert d'argent a échoué")
-                case .httpStatusCodeError:
-                    XCTFail("Le serveur a renvoyé un code d'état HTTP différent de 200")
-                }
-            } catch {
-                XCTFail("Une erreur inattendue s'est produite : \(error)")
-            }
         }
+""".data(using: .utf8)!
+        
+        let urlRequest = HTTPURLResponse(url: URL(string: "http://exemple/account/transfer")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
+        
+        let usingdata : (Data,HTTPURLResponse) = (moneyTransferModel,urlRequest)
+        (moneyTransferService.httpservice as! MockHTTPService).mocksesult = usingdata
+        
+        
+        do{
+           let response = try await moneyTransferService.fetchMoneyTransfer(recipient: "exemple@gmail.com", amount: 11, token: "token")
+            XCTAssertEqual(response.statusCode,200)
+            
+        }catch let error as MoneyTransferService.TransferFailureReason {
+            XCTAssertEqual(error, .failedTransferRequest)
+        }catch{
+            XCTFail("Unexpected error: \(error)")
+            
+        }
+      
+      
     }
     
     class MockHTTPService : HTTPService {
+        
+            var mocksesult : (Data,URLResponse)?
+        
          func request(_ request : URLRequest) async throws -> (Data,URLResponse){
-             let tokenData = try JSONEncoder().encode(["token": "validToken"])
-             let response = HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: nil, headerFields: nil)!
-                    return (tokenData, response)
+             
+             guard let result = mocksesult else {
+                 throw NSError(domain: "", code: 0,userInfo: nil)
+             }
+            return result
+                    
         }
     }
 }

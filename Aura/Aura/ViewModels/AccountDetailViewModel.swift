@@ -23,13 +23,12 @@ class AccountDetailViewModel: ObservableObject {
     }
 
     enum Failure :Error {
-        case error
         case tokenInvalide
     }
    
 
     @MainActor
-    func displayNewTransactions() async {
+    func displayNewTransactions() async throws {
         
         do {
             if let getoken = keychain.get("token") {
@@ -42,13 +41,11 @@ class AccountDetailViewModel: ObservableObject {
                 }
                 recentTransactions.append(contentsOf: transactions)
 
-            } else {
-                print(Failure.tokenInvalide)
             }
             
-
-        } catch {
-            print(error)
+        }
+        catch {
+             throw Failure.tokenInvalide
         }
     }
 

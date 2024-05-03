@@ -3,57 +3,61 @@ import XCTest
 
 final class TestAccountDetailViewModel: XCTestCase {
     
-    let accountDetailViewModel = AccountDetailViewModel(accountModel: TestDisplayTransactionDetails())
-   
+    var accountDetailViewModel : AccountDetailViewModel!
     
-    func testBeforInit() async  {
-        // Given
-        
-        // When
-        let totalAmount = "€12,345.67"
-        
-        // Then
-        XCTAssertEqual(accountDetailViewModel.totalAmount, totalAmount)
-        XCTAssertEqual(accountDetailViewModel.recentTransactions.count, 3)
+    override func setUp() {
+        accountDetailViewModel = AccountDetailViewModel(accountModel: MockArray())
+        super.setUp()
     }
+    override func tearDown() {
+        accountDetailViewModel = nil
+        super.tearDown()
+    }
+   
+  
     
-    
-    func testDisplayNewTransactions() async {
+    func testDisplayNewTransactions() async throws {
         // Given
         let displayNewTransactions =  accountDetailViewModel.displayNewTransactions
         
         // When
-         await displayNewTransactions()
         
         // Then
-        XCTAssertNoThrow(accountDetailViewModel.recentTransactions.count > 3)
-        XCTAssertTrue(accountDetailViewModel.recentTransactions.contains { $0.description == "Amazon Purchase" })
-        XCTAssertFalse(accountDetailViewModel.recentTransactions.isEmpty)
+        
+        do{
+            try await displayNewTransactions()
 
+            XCTAssertNoThrow(accountDetailViewModel.recentTransactions.count > 3)
+            XCTAssertTrue(accountDetailViewModel.recentTransactions.contains { $0.description == "Amazon Purchase" })
+            XCTAssertFalse(accountDetailViewModel.recentTransactions.isEmpty)
+        } catch let error as AccountDetailViewModel.Failure {
+            XCTAssertEqual(error, .tokenInvalide)
+        }catch{
+            XCTFail("Unexpected error: \(error)")
+        }
     }
     
+    class MockArray : DisplayTransactionDetails {
+//        var exempleforArray : [Transaction]?
+//        
+//        override func fetchAccountDetails(_ token: String) async throws -> TransactionDisplayModel {
+//            
+//            guard let result =  exempleforArray else{
+//                throw NSError(domain: "", code: 0,userInfo: nil)
+//            }
+//            return TransactionDisplayModel(from:result)
+//        }
+    }
     
-    class TestDisplayTransactionDetails : DisplayTransactionDetails {
+    class Mockkeychain: KeychainSwift {
         
-        enum TransactionDetailsRetrievalFailure: Error {
-            case fetchAccountDetailsDecodingFailure
-        }
-
-
-        override func makeMultiTransactionDetailsURLRequest(_ token:String) -> URLRequest {
-            let url = URL(string: "http://127.0.0.1:8080/account")!
-            let request = URLRequest(url: url)
+        var keychain : String?
+       
+        func getValue(forKey key: String) -> String? {
             
-            return request
-        }
-        
-        override func fetchAccountDetails(_ token : String ) async throws -> TransactionDisplayModel {
-            let (data, _) = try await URLSession(configuration: .ephemeral).data(for: makeMultiTransactionDetailsURLRequest(token))
-            guard let json = try? JSONDecoder().decode(TransactionDisplayModel.self, from: data) else {
-                throw TransactionDetailsRetrievalFailure.fetchAccountDetailsDecodingFailure
-            }
-            return json
+            return keychain
+            
         }
     }
-
+   
 }

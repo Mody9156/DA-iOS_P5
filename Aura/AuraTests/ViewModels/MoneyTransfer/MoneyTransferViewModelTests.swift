@@ -60,7 +60,7 @@ final class MoneyTransferViewModelTests: XCTestCase {
             case FailedTransferRequest, HTTPStatusCodeError
         }
         
-        override func fetchMoneyTransfer(recipient: String, amount: Double, token: String) async throws {
+         func fetchMoneyTransfer(recipient: String, amount: Double, token: String) async throws {
             do {
                 let (_, response) = try await URLSession(configuration: .ephemeral).data(for: makeTransferURLRequest(recipient: recipient, amount: amount, token: token))
                 

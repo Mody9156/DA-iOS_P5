@@ -29,14 +29,16 @@ class MoneyTransferService {
         return request
     }
 
-    func fetchMoneyTransfer(recipient: String, amount: Double, token: String) async throws {
+    func fetchMoneyTransfer(recipient: String, amount: Double, token: String) async throws -> HTTPURLResponse {
         do {
             let (_, response) = try await httpservice.request(makeTransferURLRequest(recipient: recipient, amount: amount, token: token))
             
             guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
                 throw TransferFailureReason.httpStatusCodeError
             }
-            return
+            print("response :\(httpResponse)")
+            return httpResponse
+         
         } catch {
             throw TransferFailureReason.failedTransferRequest
         }
