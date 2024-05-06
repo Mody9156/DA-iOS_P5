@@ -29,8 +29,8 @@ class MoneyTransferViewModel: ObservableObject {
         // Logic to send money - for now, we're just setting a success message.
         // You can later integrate actual logic.
         
-      
-        
+      var stokeToken = ""
+        var recupamount = 0.0
         if recipient.isEmpty && amount.isEmpty {
             transferMessage = "Please enter recipient and amount."
         } else if amount.isEmpty {
@@ -39,22 +39,23 @@ class MoneyTransferViewModel: ObservableObject {
             transferMessage = "Please enter valid recipient."
         } else {
             do {
-                guard let getAmount = Double(amount) else {
+                if let getAmount = Double(amount)  {
+                    recupamount = getAmount
+                }else{
                     throw Failure.failAmount
                 }
                 if let getoken = keychain.get("token") {
-                    try await  moneyTransferModel.fetchMoneyTransfer(recipient: recipient, amount : getAmount, token: getoken)
-                    self.moneyTransferModel.makeTransferURLRequest(recipient: recipient, amount: getAmount, token: getoken)
-                    
-                } else {
-                    print(Failure.tokenInvalide)
+                    stokeToken = getoken
                 }
-               
+                    try await  moneyTransferModel.fetchMoneyTransfer(recipient: recipient, amount : recupamount, token: stokeToken)
+                
+                    self.moneyTransferModel.makeTransferURLRequest(recipient: recipient, amount: recupamount, token: stokeToken)
+                    
                 
                 transferMessage = "Successfully transferred \( amount) to \( recipient)"
             } catch {
                 transferMessage = "Failed to transfer \(amount) to \(recipient)"
-                print(error)
+                print(Failure.tokenInvalide)
             }
         }
     }

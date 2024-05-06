@@ -2,10 +2,27 @@ import XCTest
 @testable import Aura
 
 final class MoneyTransferViewModelTests: XCTestCase {
-    let moneyTransferViewModel = MoneyTransferViewModel(moneyTransferModel: MoneyTransferServiceTests())
+    
+    var moneyTransferViewModel: MoneyTransferViewModel!
+    var mockHTTPServiceTransactionDetails: MockHTTPServiceTransactionDetails!
+    
+    override func setUp() {
+        moneyTransferViewModel = MoneyTransferViewModel(moneyTransferModel: MoneyTransferService(httpservice: MockHTTPServiceTransactionDetails()))
+        mockHTTPServiceTransactionDetails = MockHTTPServiceTransactionDetails()
+        super.setUp()
+    }
+    
+    override func tearDown() {
+        moneyTransferViewModel = nil
+        mockHTTPServiceTransactionDetails = nil
+        super.tearDown()
+    }
+    
     let tesKeychain = TesKeychain()
    
     func testsendAllEmpty() async throws {
+        // Given
+        
         // When
         moneyTransferViewModel.recipient = ""
         moneyTransferViewModel.amount = ""
@@ -15,12 +32,17 @@ final class MoneyTransferViewModelTests: XCTestCase {
 
             // Then
             XCTAssertEqual(moneyTransferViewModel.transferMessage, "Please enter recipient and amount.")
+        } catch let error as MoneyTransferViewModel.Failure {
+            XCTAssertEqual(error, .tokenInvalide)
+            XCTAssertEqual(error, .failAmount)
         } catch {
             XCTFail("Failed to transfer \(moneyTransferViewModel.amount) to \(moneyTransferViewModel.recipient)")
         }
     }
     
     func testAmountEmpty() async throws {
+        // Given
+        
         // When
         moneyTransferViewModel.recipient = "exemple@gmail.com"
         moneyTransferViewModel.amount = ""
@@ -30,13 +52,35 @@ final class MoneyTransferViewModelTests: XCTestCase {
 
             // Then
             XCTAssertEqual(moneyTransferViewModel.transferMessage, "Please enter amount.")
+        } catch let error as MoneyTransferViewModel.Failure {
+            XCTAssertEqual(error, .tokenInvalide)
+            XCTAssertEqual(error, .failAmount)
         } catch {
             XCTFail("Failed to transfer \(moneyTransferViewModel.amount) to \(moneyTransferViewModel.recipient)")
         }
     }
     
     func testRecipientEmpty() async throws {
-        //Given
+        // Given
+        
+        // When
+        moneyTransferViewModel.recipient = "exemple@gmail.com"
+        moneyTransferViewModel.amount = "33.33"
+        
+        do {
+            try await moneyTransferViewModel.sendMoney()
+            print("Actual transfer message:", moneyTransferViewModel.transferMessage)
+
+            // Then
+            XCTAssertNotNil(moneyTransferViewModel.transferMessage)
+
+        } catch {
+            XCTFail("Failed to transfer \(moneyTransferViewModel.amount) to \(moneyTransferViewModel.recipient)")
+        }
+    }
+    
+    func testisTrue() async throws {
+        // Given
         
         // When
         moneyTransferViewModel.recipient = ""
@@ -44,38 +88,33 @@ final class MoneyTransferViewModelTests: XCTestCase {
         
         do {
             try await moneyTransferViewModel.sendMoney()
+            print("Actual transfer message:", moneyTransferViewModel.transferMessage)
 
             // Then
-            XCTAssertEqual(moneyTransferViewModel.transferMessage, "Please enter valid recipient.")
+            XCTAssertNotNil(moneyTransferViewModel.transferMessage)
+
+        } catch let error as MoneyTransferViewModel.Failure {
+            XCTAssertEqual(error, .tokenInvalide)
+            XCTAssertEqual(error, .failAmount)
         } catch {
             XCTFail("Failed to transfer \(moneyTransferViewModel.amount) to \(moneyTransferViewModel.recipient)")
+            XCTAssertEqual(moneyTransferViewModel.transferMessage, "Please enter valid recipient.")
         }
+        
     }
-    
-    class MoneyTransferServiceTests : MoneyTransferService {
-        let amount: String = "22"
-        let token = "token"
+   
+    class MockHTTPServiceTransactionDetails: HTTPService {
+        var data: (Data,URLResponse)?
         
-        enum TransferFailureReason: Error {
-            case FailedTransferRequest, HTTPStatusCodeError
-        }
-        
-         func fetchMoneyTransfer(recipient: String, amount: Double, token: String) async throws {
-            do {
-                let (_, response) = try await URLSession(configuration: .ephemeral).data(for: makeTransferURLRequest(recipient: recipient, amount: amount, token: token))
-                
-                guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-                    throw TransferFailureReason.HTTPStatusCodeError
-                }
-                
-                return
-            } catch {
-                throw TransferFailureReason.FailedTransferRequest
+        func request(_ request: URLRequest) async throws -> (Data,URLResponse) {
+            guard let result = data else {
+                throw NSError(domain: "", code: 0,userInfo: nil)
             }
+            return result
         }
     }
     
-    class TesKeychain : KeychainSwift {
+    class TesKeychain: KeychainSwift {
         override func get(_ key: String) -> String? {
             return "keys"
         }

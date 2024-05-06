@@ -6,11 +6,13 @@ final class DisplayTransactionDetailsTests: XCTestCase {
     var displayTransactionDetails : DisplayTransactionDetails!
     
     override func setUp()  {
-        displayTransactionDetails = DisplayTransactionDetails(httpservice: MockHTTPServiceTransactionDetails())
         super.setUp()
+        // Given
+        displayTransactionDetails = DisplayTransactionDetails(httpservice: MockHTTPServiceTransactionDetails())
     }
     
     override func tearDown() {
+        // Nettoyage après chaque test si nécessaire
         displayTransactionDetails = nil
         super.tearDown()
     }
@@ -22,8 +24,10 @@ final class DisplayTransactionDetailsTests: XCTestCase {
         let url = URL(string: "http://exemple/account")!
         var expectedRequest = URLRequest(url: url)
         expectedRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "content-type")
+        
         // When
         let makeMultiTransactionDetailsURLRequest = displayTransactionDetails.makeMultiTransactionDetailsURLRequest(tokenoforAccount)
+        
         // Then
         XCTAssertEqual(makeMultiTransactionDetailsURLRequest.httpMethod, "GET")
         XCTAssertNotNil(makeMultiTransactionDetailsURLRequest.allHTTPHeaderFields?["token"], tokenoforAccount)
@@ -33,6 +37,7 @@ final class DisplayTransactionDetailsTests: XCTestCase {
     }
 //
     func testfetchAccountDetails() async throws {
+        // Given
         let jsonData = """
                 {
                     "currentBalance": 100.0,
@@ -53,7 +58,7 @@ final class DisplayTransactionDetailsTests: XCTestCase {
         let data : (Data,HTTPURLResponse) = (jsonData,urlresponse)
         (displayTransactionDetails.httpservice as! MockHTTPServiceTransactionDetails).data = data
         
-
+        // When/Then
         do{
             let recupdata = try await displayTransactionDetails.fetchAccountDetails("token")
            
@@ -74,11 +79,13 @@ final class DisplayTransactionDetailsTests: XCTestCase {
     
     
     func testfetchAccountDetail() async throws {
+        // Given
         let jsondecode = "{\"test\":\"exempl\"}".data(using: .utf8)!
         let urlresponse = HTTPURLResponse(url: URL(string: "https//exemple.com")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
         let data : (Data,HTTPURLResponse) = (jsondecode,urlresponse)
         (displayTransactionDetails.httpservice as! MockHTTPServiceTransactionDetails).data = data
         
+        // When/Then
         do{
             let decodeAccount = try await displayTransactionDetails.fetchAccountDetails("token")
             XCTFail("Expected decoding error")

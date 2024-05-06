@@ -6,27 +6,24 @@ final class MoneyTransferServiceTests: XCTestCase {
     var moneyTransferService : MoneyTransferService!
     
     override func setUp()  {
+        // Given
         moneyTransferService = MoneyTransferService(httpservice: MockHTTPService())
         super.setUp()
     }
                                         
-        override func tearDown() {
-            moneyTransferService = nil
-            super.tearDown()
-        }
+    override func tearDown() {
+        // Nettoyage après chaque test si nécessaire
+        moneyTransferService = nil
+        super.tearDown()
+    }
     
-    
-    
-
 
     func testmakeTransferURLRequest() throws {
-
-        
-            let recipient = "exemple@gmail.com"
-            let amount  = 233.44
-            let tokenforMoneyTransfer = "tokenforMoneyTransfer"
-        
         // Given
+        let recipient = "exemple@gmail.com"
+        let amount  = 233.44
+        let tokenforMoneyTransfer = "tokenforMoneyTransfer"
+        
         let url = URL(string: "http://exemple/account/transfer")!
         var urlRequest = URLRequest(url: url)
         urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "content-type")
@@ -45,6 +42,7 @@ final class MoneyTransferServiceTests: XCTestCase {
     }
     
     func testFailfetchMoneyTransfer() async throws {
+        // Given
         var moneyTransferModel = """
         {
         "recipient":"0768807796",
@@ -58,7 +56,7 @@ final class MoneyTransferServiceTests: XCTestCase {
         let usingdata : (Data,HTTPURLResponse) = (moneyTransferModel,urlRequest)
         (moneyTransferService.httpservice as! MockHTTPService).mocksesult = usingdata
         
-        
+        // When/Then
         do{
             _ = try await moneyTransferService.fetchMoneyTransfer(recipient: "exemple@gmail.com", amount: 11, token: "token")
             
@@ -67,16 +65,11 @@ final class MoneyTransferServiceTests: XCTestCase {
             XCTAssertEqual(error, .failedTransferRequest)
         }catch{
             XCTFail("Unexpected error: \(error)")
-            
         }
-        
-        
-        
-        
     }
 
     func testfetchMoneyTransfer() async throws {
-      
+        // Given
         var moneyTransferModel = """
         {
         "recipient":"0768807796",
@@ -90,7 +83,7 @@ final class MoneyTransferServiceTests: XCTestCase {
         let usingdata : (Data,HTTPURLResponse) = (moneyTransferModel,urlRequest)
         (moneyTransferService.httpservice as! MockHTTPService).mocksesult = usingdata
         
-        
+        // When/Then
         do{
            let response = try await moneyTransferService.fetchMoneyTransfer(recipient: "exemple@gmail.com", amount: 11, token: "token")
             XCTAssertEqual(response.statusCode,200)
@@ -99,17 +92,14 @@ final class MoneyTransferServiceTests: XCTestCase {
             XCTAssertEqual(error, .failedTransferRequest)
         }catch{
             XCTFail("Unexpected error: \(error)")
-            
         }
-      
-      
     }
     
     class MockHTTPService : HTTPService {
         
-            var mocksesult : (Data,URLResponse)?
+        var mocksesult : (Data,URLResponse)?
         
-         func request(_ request : URLRequest) async throws -> (Data,URLResponse){
+        func request(_ request : URLRequest) async throws -> (Data,URLResponse){
              
              guard let result = mocksesult else {
                  throw NSError(domain: "", code: 0,userInfo: nil)

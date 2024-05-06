@@ -5,7 +5,7 @@ final class AppViewModelTests: XCTestCase {
 
     let appViewModel = AppViewModel()
   
-    func testIsLogged() throws {
+    func testIsLoggedInitiallyFalse() throws {
         // Given
         let isLogged = appViewModel.isLogged
         
@@ -24,7 +24,7 @@ final class AppViewModelTests: XCTestCase {
         XCTAssertNoThrow(authenticationViewModel)
     }
     
-    func testAccountDetailViewModel() {
+    func testAccountDetailViewModelInitialization() {
         // Given
         
         // When
@@ -35,7 +35,7 @@ final class AppViewModelTests: XCTestCase {
         XCTAssertNoThrow(accountDetailViewModel)
     }
     
-    func testMoneyTransferViewModel() {
+    func testMoneyTransferViewModelInitialization() {
         // Given
         
         // When

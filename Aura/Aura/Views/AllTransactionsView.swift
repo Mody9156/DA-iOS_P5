@@ -1,3 +1,4 @@
+//
 //  AllTransactionsView.swift
 //  Aura
 //

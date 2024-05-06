@@ -1,63 +1,115 @@
 import XCTest
 @testable import Aura
 
-final class TestAccountDetailViewModel: XCTestCase {
+final class AccountDetailViewModelTests: XCTestCase {
     
-    var accountDetailViewModel : AccountDetailViewModel!
+    var viewModelUnderTest: AccountDetailViewModel!
+    var mockKeychain: MockKeychain!
+    var mockArray: MockArray!
     
     override func setUp() {
-        accountDetailViewModel = AccountDetailViewModel(accountModel: MockArray())
+        viewModelUnderTest = AccountDetailViewModel(accountModel: MockArray())
+        mockKeychain = MockKeychain()
+        mockArray = MockArray()
         super.setUp()
     }
+    
     override func tearDown() {
-        accountDetailViewModel = nil
+        viewModelUnderTest = nil
+        mockKeychain = nil
+        mockArray = nil
         super.tearDown()
     }
    
-  
-    
     func testDisplayNewTransactions() async throws {
         // Given
-        let displayNewTransactions =  accountDetailViewModel.displayNewTransactions
+        let expectedToken = "token"
+        mockKeychain.keychain = expectedToken
         
-        // When
-        
-        // Then
-        
-        do{
-            try await displayNewTransactions()
+        do {
+            // When
+            try await viewModelUnderTest.displayNewTransactions()
 
-            XCTAssertNoThrow(accountDetailViewModel.recentTransactions.count > 3)
-            XCTAssertTrue(accountDetailViewModel.recentTransactions.contains { $0.description == "Amazon Purchase" })
-            XCTAssertFalse(accountDetailViewModel.recentTransactions.isEmpty)
+            // Then
+            XCTAssertNoThrow(viewModelUnderTest.recentTransactions.count > 3)
+            XCTAssertTrue(viewModelUnderTest.recentTransactions.contains { $0.description == "Amazon Purchase" })
+            XCTAssertEqual(viewModelUnderTest.recentTransactions.count, 4)
+            XCTAssertTrue(viewModelUnderTest.recentTransactions.contains { $0.description == "Apple" })
+            XCTAssertEqual(viewModelUnderTest.recentTransactions.first?.description, "Starbucks")
+            XCTAssertEqual(viewModelUnderTest.recentTransactions.last?.description, "Pear")
+            XCTAssertNotNil(viewModelUnderTest.displayNewTransactions)
+
         } catch let error as AccountDetailViewModel.Failure {
             XCTAssertEqual(error, .tokenInvalide)
-        }catch{
+        } catch {
             XCTFail("Unexpected error: \(error)")
         }
     }
-    
-    class MockArray : DisplayTransactionDetails {
-//        var exempleforArray : [Transaction]?
-//        
-//        override func fetchAccountDetails(_ token: String) async throws -> TransactionDisplayModel {
-//            
-//            guard let result =  exempleforArray else{
-//                throw NSError(domain: "", code: 0,userInfo: nil)
-//            }
-//            return TransactionDisplayModel(from:result)
-//        }
-    }
-    
-    class Mockkeychain: KeychainSwift {
+  
+    func testDisplayNewTransactionsWithInvalidToken() async throws {
+        // Given
+        mockKeychain.keychain = nil
         
-        var keychain : String?
-       
-        func getValue(forKey key: String) -> String? {
-            
-            return keychain
-            
+        // When/Then
+        do {
+            try await viewModelUnderTest.displayNewTransactions()
+            XCTFail("Expected an error but got none")
+        } catch let error as AccountDetailViewModel.Failure {
+            XCTAssertEqual(error, .tokenInvalide)
+        } catch {
+            XCTFail("Unexpected error: \(error)")
         }
     }
-   
+
+    func testTransactionMapping() async throws {
+        // Given
+        let mockAccountModel = MockArray()
+        let viewModel = AccountDetailViewModel(accountModel: mockAccountModel)
+        let mockKey = "exemple"
+        let expectedTransactions = [
+            Transaction(value: 10.0, label: "Transaction 1"),
+            Transaction(value: 20.0, label: "Transaction 2")]
+
+        mockAccountModel.exampleTransactions = expectedTransactions
+        let mockKeychain = MockKeychain()
+        mockKeychain.keychain = mockKey
+        
+        // When
+        do {
+            try await viewModel.displayNewTransactions()
+                 
+            let mappedTransactions = expectedTransactions.map {
+                TransactionsModel(description: $0.label, amount: "\($0.value)")
+            }
+            
+            // Then
+            
+        } catch let error as  AccountDetailViewModel.Failure {
+            XCTAssertEqual(error, .tokenInvalide)
+        } catch {
+            XCTFail("Failed to display new transactions")
+        }
+    }
+
+    class MockArray: DisplayTransactionDetails {
+        var exampleTransactions: [Transaction]?
+        
+        override func fetchAccountDetails(_ token: String) async throws -> TransactionDisplayModel {
+            
+            guard let result =  exampleTransactions else {
+                throw NSError(domain: "", code: 0, userInfo: nil)
+            }
+
+            let transactionDisplay = TransactionDisplayModel(currentBalance: 0, transactions: result)
+            return transactionDisplay
+        }
+    }
+    
+    class MockKeychain: KeychainSwift {
+        var keychain: String?
+       
+        func getValue(forKey key: String) -> String? {
+            return keychain
+        }
+    }
 }

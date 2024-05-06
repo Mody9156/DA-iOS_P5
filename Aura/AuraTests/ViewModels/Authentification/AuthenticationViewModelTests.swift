@@ -1,90 +1,92 @@
 import XCTest
 @testable import Aura
 
-final class TestAuthenticationViewModel: XCTestCase {
+final class AuthenticationViewModelTests: XCTestCase {
   
-    var authenticationViewModel : AuthenticationViewModel!
+    var authenticationViewModel: AuthenticationViewModel!
     
-    override func setUp()  {
-        authenticationViewModel = AuthenticationViewModel({},authentification: MockAuthConnector())
+    override func setUp() {
+        authenticationViewModel = AuthenticationViewModel({}, authentification: MockAuthConnector())
         super.setUp()
     }
-    override func tearDown(){
+    
+    override func tearDown() {
         authenticationViewModel = nil
         super.tearDown()
     }
     
-    func testonLoginSucceed()async throws {
+    func testOnLoginSucceed() async throws {
+        //Given
         let expected = XCTestExpectation(description: "onLoginSucceed is true")
-        
-        let viewmodel = AuthenticationViewModel ({
+      
+        let viewmodel = AuthenticationViewModel({
             expected.fulfill()
         })
         
-        do{
+        //When
+        do {
             try await viewmodel.connectAuthenticationViewModel()
         }
         
+        //Then
         wait(for: [expected], timeout: 1)
     }
 
     func testConnectAuthenticationViewModel() async throws {
         // Given
-       
-        let encodeToken  = "token"
-        (authenticationViewModel.authentification as! MockAuthConnector ).getToken = encodeToken
+        let encodeToken = "token"
+        (authenticationViewModel.authentification as! MockAuthConnector).getToken = encodeToken
         
-        let keychain = Mockkeychain()
+        let keychain = MockKeychain()
         authenticationViewModel.keychain = keychain
         
-        var iscall = false
+        var isCall = false
         
         authenticationViewModel.onLoginSucceed = {
-            iscall = true
+            isCall = true
         }
+        
         // When
         let username = "test@aura.app"
         let password = "test123"
        
         // Then
-        
-        do{
-            let connectAuthenticationViewModel =  try await authenticationViewModel.connectAuthenticationViewModel()
+        do {
+            let connectAuthenticationViewModel = try await authenticationViewModel.connectAuthenticationViewModel()
             
             XCTAssertEqual(connectAuthenticationViewModel, encodeToken)
-            XCTAssertEqual(authenticationViewModel.username,username)
-            XCTAssertEqual(authenticationViewModel.password,password)
+            XCTAssertEqual(authenticationViewModel.username, username)
+            XCTAssertEqual(authenticationViewModel.password, password)
             XCTAssertEqual(keychain.get("token"), encodeToken)
-            XCTAssertTrue(iscall)
+            XCTAssertTrue(isCall)
             
-        }catch let error as AuthenticationViewModel.AuthViewModelFailure{
+        } catch let error as AuthenticationViewModel.AuthViewModelFailure {
             XCTAssertEqual(error, .tokenInvalide)
-            XCTAssertFalse(iscall)
+            XCTAssertFalse(isCall)
 
-        }catch{
+        } catch {
             XCTFail("Unexpected error: \(error)")
-            XCTAssertFalse(iscall)
+            XCTAssertFalse(isCall)
 
         }
-        
     }
 
     class MockAuthConnector: AuthConnector {
         
-        var getToken : String?
+        var getToken: String?
         
         override func getToken(username: String, password: String) async throws -> String {
             
-            guard let result = getToken else{
-                throw NSError(domain: "", code: 0,userInfo: nil)
+            guard let result = getToken else {
+                throw NSError(domain: "", code: 0, userInfo: nil)
             }
             return result
         }
     }
     
-    class Mockkeychain: KeychainSwift {
+    class MockKeychain: KeychainSwift {
         
-        private var keychain : [String:String] = [:]
+        private var keychain: [String:String] = [:]
         
         func set(_ value: String, forKey key: String, withAccess access: KeychainSwiftAccessOptions? = nil, synchronizable: Bool = false, whenPrompt: String? = nil) -> Bool {
             keychain[key] = value
@@ -95,9 +97,7 @@ final class TestAuthenticationViewModel: XCTestCase {
             return keychain[key]
         }
         func getValue(forKey key: String) -> String? {
-            
             return keychain[key]
-            
         }
     }
 }

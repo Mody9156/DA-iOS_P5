@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TransactionsModel {
+struct TransactionsModel : Equatable {
     let description: String
     let amount: String
 }

@@ -28,20 +28,21 @@ class AccountDetailViewModel: ObservableObject {
    
 
     @MainActor
-    func displayNewTransactions() async throws {
-        
+    func displayNewTransactions() async throws  {
+        var stockKey = ""
         do {
-            if let getoken = keychain.get("token") {
-                let makeMultiTransactionDetailsURLRequest = accountModel.makeMultiTransactionDetailsURLRequest(getoken)
-
-                let data = try await accountModel.fetchAccountDetails(getoken)
+            if let getoken = keychain.get("token")  {
+                stockKey = getoken
+                
+            }
+                let makeMultiTransactionDetailsURLRequest = accountModel.makeMultiTransactionDetailsURLRequest(stockKey)
+                let data = try await accountModel.fetchAccountDetails(stockKey)
                 let dataTransactions = data.transactions
                 let transactions = dataTransactions.map {
                     TransactionsModel(description: $0.label, amount: String($0.value))
                 }
                 recentTransactions.append(contentsOf: transactions)
-
-            }
+            
             
         }
         catch {

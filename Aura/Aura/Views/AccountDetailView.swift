@@ -52,29 +52,28 @@ struct AccountDetailView: View {
             }
             
             Button(action: {
-                
                 viewModel.transactionDetailsShown = true
-
             }) {
                 HStack {
                     Image(systemName: "list.bullet")
-                    Text( "See Transaction Details")
+                    Text("See Transaction Details")
                 }
                 .padding()
                 .background(Color(hex: "#94A684"))
                 .foregroundColor(.white)
                 .cornerRadius(8)
             }
-            .padding([.horizontal, .bottom]).sheet(isPresented: $viewModel.transactionDetailsShown ) {
+            .padding([.horizontal, .bottom])
+            .sheet(isPresented: $viewModel.transactionDetailsShown ) {
                 AllTransactionsView(recentTransactions: viewModel.recentTransactions)
             }
             Spacer()
         }
         .onTapGesture {
             self.endEditing(true)  // This will dismiss the keyboard when tapping outside
-        }.task {
-                  try?  await viewModel.displayNewTransactions()
-        
+        }
+        .task {
+            try? await viewModel.displayNewTransactions()
         }
     }
 }
