@@ -50,13 +50,21 @@ Before running this project, ensure that the following are installed:
 |:--:|:--:|:--:|
 | **Connexion** | **Account** | **Transfer** |
 
-
-
 - **Screenshot 1**: Display the user authentication screen where users can log in with their credentials.
   
 - **Screenshot 2**: Show the main dashboard, including account balance and recent transactions, once the user has logged in.
 
+- **Screenshot 3**: Present the money transfer screen, where users can input transfer details such as the recipient's account information, amount, and any necessary confirmation actions.
+
 These can help illustrate the user flow and functionality visually.
+
+
+## Demo Video
+
+<div align="center">
+<img src="Screenshots/test.gif" alt="" width="500">
+</div>
+
 
 ## Contribution
 
