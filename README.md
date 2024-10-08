@@ -1,3 +1,7 @@
+<div align="center">
+<img src="Screenshots/logo.png" alt="logo" width="100">
+</div>
+
 # iOS Banking Application
 
 This project involves developing a banking application for iOS using the MVVM architecture. The goal is to create an application that allows users to manage their bank account, display recent transactions, make transfers, and access other essential features.
