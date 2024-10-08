@@ -1,5 +1,5 @@
 <div align="center">
-<img src="Screenshots/logo.png" alt="logo" width="150">
+<img src="Screenshots/logo.png" alt="logo" width="150" border-radius="20">
 </div>
 
 # iOS Banking Application
