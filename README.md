@@ -2,51 +2,53 @@
 <img src="Screenshots/logo.png" alt="logo" width="150">
 </div>
 
-# iOS Banking Application
+# Application Bancaire iOS
 
-This project involves developing a banking application for iOS using the MVVM architecture. The goal is to create an application that allows users to manage their bank account, display recent transactions, make transfers, and access other essential features.
+Ce projet consiste à développer une application bancaire pour iOS en utilisant l’architecture **MVVM**.  
+L’objectif est de créer une application permettant aux utilisateurs de gérer leur compte bancaire, afficher les transactions récentes, effectuer des virements et accéder à d’autres fonctionnalités essentielles.
 
-## Features
+## Fonctionnalités
 
-The iOS banking application will offer the following features:
+L’application bancaire iOS offrira les fonctionnalités suivantes :
 
-User Authentication: Users will need to authenticate to access their bank account.
-Account Information Display: Users will be able to view their account balance and recent transactions.
-Complete Transaction History: Users will have access to their full transaction history.
-Money Transfer: Users will be able to transfer money to other accounts.
+- **Authentification utilisateur** : Les utilisateurs devront s’authentifier pour accéder à leur compte bancaire.  
+- **Affichage des informations du compte** : Les utilisateurs pourront consulter leur solde et leurs transactions récentes.  
+- **Historique complet des transactions** : Les utilisateurs auront accès à l’historique complet de leurs transactions.  
+- **Virement d’argent** : Les utilisateurs pourront transférer de l’argent vers d’autres comptes.
 
-## Technologies Used
+## Technologies utilisées
 
-The project will be developed using the following technologies:
+Le projet sera développé avec les technologies suivantes :
 
-- **Swift**: The primary programming language for iOS development.
-- **UIKit**: A framework for building user interfaces.
-- **MVVM (Model-View-ViewModel)**: The architecture used to structure the application and separate concerns.
-- **API**: An external API will be used to fetch and send real-time data.
-- **Unit Testing**: Unit tests will be implemented to ensure sufficient code coverage and reliability.
+- **Swift** : Langage de programmation principal pour le développement iOS.  
+- **UIKit** : Framework pour créer des interfaces utilisateur.  
+- **MVVM (Model-View-ViewModel)** : Architecture utilisée pour structurer l’application et séparer les responsabilités.  
+- **API** : Une API externe sera utilisée pour récupérer et envoyer des données en temps réel.  
+- **Tests unitaires** : Des tests unitaires seront mis en place pour assurer la fiabilité et une couverture suffisante du code.
 
-## Prerequisites
+## Prérequis
 
-Before running this project, ensure that the following are installed:
+Avant d’exécuter ce projet, assurez-vous que les éléments suivants sont installés :
 
-- **Xcode**: The integrated development environment (IDE) for iOS development.
-- **Apple Developer Account**: You will need an Apple Developer account to build and run iOS applications on a real device.
+- **Xcode** : L’environnement de développement intégré (IDE) pour iOS.  
+- **Compte Apple Developer** : Vous aurez besoin d’un compte Apple Developer pour exécuter l’application sur un appareil réel.
 
-## Installation and Execution
+## Installation et exécution
 
-1. Clone this repository to your local machine.
+1. Clonez ce dépôt sur votre machine locale :
    
    ```bash
    git clone [repository-url]
    ```
 
-2. Open the project in Xcode.
+2. Ouvrez le projet dans **Xcode**.
+
 
    ```bash
    open ProjectName.xcodeproj
    ```
 
-3. Build and run the application on the iOS simulator or a real device by selecting the appropriate target in Xcode and clicking the **Run** button.
+3. Compilez et lancez l’application dans le **simulateur iOS** ou sur un appareil réel en sélectionnant la cible appropriée dans Xcode et en cliquant sur le bouton **Run**.
 
 ## Screenshots
 
@@ -54,16 +56,13 @@ Before running this project, ensure that the following are installed:
 |:--:|:--:|:--:|
 | **Connexion** | **Account** | **Transfer** |
 
-- **Screenshot 1**: Display the user authentication screen where users can log in with their credentials.
-  
-- **Screenshot 2**: Show the main dashboard, including account balance and recent transactions, once the user has logged in.
+- **Capture 1** : Affiche l’écran d’authentification où l’utilisateur peut se connecter avec ses identifiants.
 
-- **Screenshot 3**: Present the money transfer screen, where users can input transfer details such as the recipient's account information, amount, and any necessary confirmation actions.
+- **Capture 2** : Montre le tableau de bord principal, incluant le solde du compte et les transactions récentes après connexion.
 
-These can help illustrate the user flow and functionality visually.
+- **Capture 3** : Présente l’écran de virement, où l’utilisateur peut saisir les détails du transfert, tels que les informations du compte destinataire,
 
-
-## Demo Video
+## Vidéo Démo
 
 <div align="center">
 <img src="Screenshots/test.gif" alt="" width="500">
@@ -72,19 +71,20 @@ These can help illustrate the user flow and functionality visually.
 
 ## Contribution
 
-Contributions to this project are welcome! If you'd like to contribute:
+Les contributions à ce projet sont les bienvenues ! Si vous souhaitez contribuer :
 
-1. Create a new branch from the main branch.
+1. Créez une nouvelle branche à partir de la branche principale.
 
-## License
+## Licence
 
-This project is licensed under the MIT License. You can refer to the LICENSE file for more details on the terms and conditions of the license.
+
+Ce projet est sous licence **MIT**. Vous pouvez consulter le fichier LICENSE pour plus de détails sur les termes et conditions de la licence.
    ```bash
    git checkout -b your-feature-branch
    ```
 
-2. Make your changes and commit them.
+2. Apportez vos modifications et effectuez un commit.
 
-3. Open a pull request to the main branch once you're finished.
+3. Ouvrez une **pull request** vers la branche principale une fois vos modifications terminées.
 
-   This will allow for code review and discussion before merging your changes.
+   Cela permettra une revue de code et des discussions avant la fusion de vos changements.
